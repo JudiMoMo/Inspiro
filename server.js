@@ -45,7 +45,7 @@ app.use('/api', routes);
 
 // Serve the home page (this will render the 'index.pug' view)
 app.get('/', (req, res) => {
-  res.render('index', { title: 'Welcome to Express with Pug!' });  // Render the 'index.pug' view
+  res.render('index', { title: 'Welcome to Inspiro!' });  // Render the 'index.pug' view
 });
 
 // Start the server
