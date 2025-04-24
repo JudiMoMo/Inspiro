@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -38,5 +39,11 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+//Connection to MongoDB
+console.log('MongoDB URI:', process.env.MONGODB_URI); // Add this for debugging
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('✅ MongoDB connected successfully!'))
+  .catch((err) => console.error('❌ MongoDB connection error:', err));
 
 module.exports = app;
