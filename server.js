@@ -27,7 +27,8 @@ app.use('/api/users', userRoutes);  // This will handle routes from user.js
 
 // Home page
 app.get('/', (req, res) => {
-  res.render('index', { title: 'Welcome to Inspiro!' });
+
+  res.render('index', { title: 'Welcome to Express with Pug!' });  // Render the 'index.pug' view
 });
 
 // Start the server
