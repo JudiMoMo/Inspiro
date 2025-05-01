@@ -1,6 +1,9 @@
-extends layout
-
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+// views/error.pug
+html
+  head
+    title Error
+  body
+    h1= message
+    // Safely access status, fallback to 500 if not present
+    h2= error.status || 500
+    pre #{error.stack}
