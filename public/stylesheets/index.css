@@ -54,12 +54,11 @@ form{
 }
 
 .form-group label {
-    font-size: 1.2em;
+    font-size: 1.1em;
 }
 
 .form-group input {
     padding: 0.5em;
-    /* border: 1px solid var(--primary-color); */
     border-radius: 5px;
     font-size: 1em;
 }
@@ -104,5 +103,6 @@ button {
 
     .login-register {
         width:50%;
+        padding: 0em 4em;
     }
 }

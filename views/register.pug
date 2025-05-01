@@ -1,43 +1,73 @@
 extends layout
 
+block styles
+  link(rel="stylesheet", href="/stylesheets/register.css")
+
 block content
-  h1 Register
-  form(action="../users/register" method="POST")
-    div
-      label(for="name") Name:
-      input(type="text" name="name" required)
+  .container 
+    section.back
+      a.strong(href="../") Back to Home
 
-    div
-      label(for="surname") Surname:
-      input(type="text" name="surname" required)
+    section.register
+      h1 Inspiro
+      p Connect with other artist and share your work
+      
+      form(action="../users/register" method="POST" enctype="multipart/form-data")
 
-    div
-      label(for="email") Email:
-      input(type="email" name="email" required)
+        .form-group
+          label(for="profileImage" class="profile-upload")
+            img#previewImage(src="/images/profile.png", alt="Upload Image")
+          input(type="file", name="profileImage", id="profileImage", hidden)
+        
+        script.
+          const fileInput = document.getElementById('profileImage');
+          const previewImage = document.getElementById('previewImage');
 
-    div
-      label(for="username") Username:
-      input(type="text" name="username" required)
+          fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+              previewImage.src = URL.createObjectURL(file);
+            }
+          });
 
-    div
-      label(for="password") Password:
-      input(type="password" name="password" required)
+        .name-surname
+          .form-group
+            label(for="name" hidden) Name:
+            input(type="text" name="name" placeholder="Name" required)
 
-    div
-      label(for="phone") Phone:
-      input(type="text" name="phone")
+          .form-group
+            label(for="surname" hidden) Surname:
+            input(type="text" name="surname" placeholder="Surname" required)
 
-    div
-      label(for="bio") Bio:
-      textarea(name="bio")
+        .form-group
+          label(for="email" hidden) Email:
+          input(type="email" name="email" placeholder="Email"  required)
 
-    div
-      label(for="category") Category:
-      input(type="text" name="category")
+        .form-group
+          label(for="username" hidden) Username:
+          input(type="text" name="username" placeholder="Username"  required)
 
-    div
-      label(for="profileImage") Profile Image URL:
-      input(type="text" name="profileImage")
+        .form-group
+          label(for="password" hidden) Password:
+          input(type="password" name="password" placeholder="Pasword"  required)
 
-    div
-      button(type="submit") Register
+        .form-group
+          label(for="phone" hidden) Phone:
+          input(type="text" name="phone" placeholder="Phone" )
+
+        .form-group
+          label(for="bio" hidden) Bio:
+          textarea(name="bio" placeholder="Bio" rows="4")
+
+        .form-group
+          label(for="category" hidden) Category:
+          input(type="text" name="category" placeholder="Category" )
+
+        //- .form-group
+        //-   label(for="profileImage" hidden) Profile Image URL:
+        //-   input(type="text" name="profileImage")
+
+        .form-group
+          button(type="submit") Register
+
+        

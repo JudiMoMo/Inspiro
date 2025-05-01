@@ -36,6 +36,9 @@ a {
     transition: all 0.3s ease-in-out;
 }
 
+a:hover {
+    text-decoration: underline;
+}
 /* Apply Tilt Neon to headings */
 h1,
 h2,
@@ -72,4 +75,8 @@ h4 {
 }
 h5 {
     font-size: var(--h5-font-size);
+}
+
+.strong {
+    font-weight: bold;
 }
