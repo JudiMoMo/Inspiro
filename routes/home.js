@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
   // Check if the user is logged in by verifying the session
   if (!req.session.isLoggedIn) {
-    return res.redirect('/login'); // Redirect to login if user is not logged in
+    return res.redirect('/'); // Redirect to login if user is not logged in
   }
 
   // If logged in, send the user data to the home page

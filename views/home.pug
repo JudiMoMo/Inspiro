@@ -2,12 +2,14 @@ extends layout
 
 block styles
   link(rel="stylesheet", href="/stylesheets/home.css")
-
+  
 block content
+  include partials/nav.pug
+  .container
     h1 Hello, #{user.name}!
     p Welcome back to your personalized home page.
     p Email: #{user.email}
-    if user.profileImage
-      img(src=user.profileImage alt='Profile Image')
-    a(href='/users/logout') Logout
+    //- if user.profileImage
+    //-   img(src=user.profileImage alt='Profile Image')
+    //- a(href='/users/logout') Logout
 

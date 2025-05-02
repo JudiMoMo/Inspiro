@@ -3,6 +3,7 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import session from 'express-session';
+import favicon from 'serve-favicon';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import dotenv from 'dotenv';
@@ -10,6 +11,7 @@ import dotenv from 'dotenv';
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
 import homeRouter from './routes/home.js';
+import profileRouter from './routes/profile.js';
 
 dotenv.config(); // Load environment variables
 
@@ -28,21 +30,29 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static('public/uploads'));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 
 // Session middleware (must be before routes)
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: 'your_secret_key',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: {
+    secure: false, // MUST be false for localhost unless using HTTPS
+    maxAge: 1000 * 60 * 60 // 1 hour or whatever you prefer
+  }
 }));
 
 // Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/home', homeRouter);
+app.use('/profile', profileRouter);
 
 // 404 error handler
 app.use((req, res, next) => {

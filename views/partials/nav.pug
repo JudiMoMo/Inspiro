@@ -1,0 +1,17 @@
+nav.navbar
+    .nav-left
+        a(href="/home") 
+            span.logo INSPIRO
+        a(href='/explore') Explore
+        a(href='/tutorials') Tutorials
+
+    .nav-middle
+        input.search(type='text', placeholder='Search...')
+
+
+    .nav-right
+        .profile
+         if user.profileImage
+            a(href="/profile") 
+                img(src=user.profileImage alt='Profile Image')
+            //- span #{user.name}

@@ -1,0 +1,49 @@
+extends layout
+
+block styles
+    link(rel="stylesheet", href="/stylesheets/profile.css")
+
+block content
+    include partials/nav.pug
+
+    .profile-container
+        .card
+            .profile-header
+                img.profile-img(src=user.profileImage, alt="Profile Image")
+                
+            .user-info
+                h1 #{user.name}
+                //- p.bio #{user.bio}
+                //- button.btn FOLLOW ME
+
+            .user-actions
+                i(class="fas fa-user") 
+                i(class="fab fa-instagram")
+
+//-             .user-details
+//-                 ul
+//-                     li
+//-                     i.icon-email
+//-                     | #{user.email}
+//-                     li
+//-                     i.icon-category
+//-                     | #{user.category}
+//-                     // Add more user icons/details if needed
+
+//-             .tabs
+//-                 button.tab
+//-                 i.icon-globe
+//-                 | Publicaciones
+//-                 button.tab
+//-                 i.icon-image
+//-                 | Portafolio
+//-                 button.tab
+//-                 i.icon-user-tag
+//-                 | Etiquetado
+
+//-             h4 PORTAFOLIO
+//-             .portfolio
+//-                 .item.large
+//-                 .item.small
+//-                 .item.small      
+
