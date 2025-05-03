@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1 Create a New Post
+
+  form(method="POST", action="../post", enctype="multipart/form-data")
+    .form-group
+      label(for="title") Title:
+      input(type="text", name="title", id="title", required, placeholder="Enter post title")
+
+    .form-group
+      label(for="content") Description:
+      textarea(name="content", id="content", rows="5", required, placeholder="Write your post here")
+
+    .form-group
+      label(for="image") Upload Images (1–3):
+      input(type="file", name="image", id="image", multiple=true, accept="image/*", required)
+      small Upload between 1 and 3 images (JPG, PNG, etc.)
+
+    button(type="submit") Publish

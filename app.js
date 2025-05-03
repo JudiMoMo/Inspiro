@@ -12,6 +12,7 @@ import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
 import homeRouter from './routes/home.js';
 import profileRouter from './routes/profile.js';
+import postRouter from './routes/posts.js';
 
 dotenv.config(); // Load environment variables
 
@@ -23,6 +24,7 @@ const app = express();
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
 
 // Middleware
 app.use(logger('dev'));
@@ -53,6 +55,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/home', homeRouter);
 app.use('/profile', profileRouter);
+app.use('/post', postRouter);
 
 // 404 error handler
 app.use((req, res, next) => {

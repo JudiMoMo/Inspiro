@@ -6,9 +6,9 @@ block styles
 block content
   include partials/nav.pug
   .container
-    h1 Hello, #{user.name}!
+    h1 Hello, #{user.username}!
     p Welcome back to your personalized home page.
-    p Email: #{user.email}
+    //- p Email: #{user.id}
     //- if user.profileImage
     //-   img(src=user.profileImage alt='Profile Image')
     //- a(href='/users/logout') Logout

@@ -44,8 +44,8 @@ router.post('/register', upload.single('profileImage'), async (req, res) => {
       profileImage: profileImagePath,
     });
 
-    const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
+    savedUser = await newUser.save();
+    res.redirect('/'); // Redirect to the login page after successful registration
   } catch (err) {
     console.error('Error registering user:', err); // More specific error logs
     res.status(500).json({ message: 'Error registering user' });
@@ -73,17 +73,27 @@ router.post('/login', async (req, res) => {
       return res.status(400).send('Invalid email or password');
     }
 
+
     // Compare the passwords
-    const isMatch =  bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).send('Invalid email or password');
     }
 
     // Set session data
-    req.session.userId = user._id;
-    req.session.username = user.username;
-    req.session.profileImage = user.profileImage;
-    req.session.isLoggedIn = true;
+    // req.session.userId = user._id.toString(); // Convert ObjectId to string
+    // req.session.username = user.username;
+    // req.session.profileImage = user.profileImage;
+    // req.session.isLoggedIn = true;
+
+    req.session.user = {
+      id: user._id.toString(),        // Store the ID as a string
+      name: user.name,
+      email: user.email,
+      username: user.username,
+      profileImage: user.profileImage,
+      isLoggedIn: true                // Optional, since presence of user implies logged in
+    };
 
     // Only one response, and we return to prevent further code from executing
     return res.redirect('/home'); // Redirect to the home page after successful login
