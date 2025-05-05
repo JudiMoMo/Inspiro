@@ -17,8 +17,30 @@ router.get('/', async (req, res) => {
 
     return res.render('profile', { user: req.session.user, userPosts: posts }); // Render the profile page with user data
 
-
-
 });
+
+router.get('/partials/:tab', async (req, res) => {
+    const tab = req.params.tab;
+    const validTabs = ['posts', 'portfolio', 'tagged'];
+
+    if (!validTabs.includes(tab)) {
+        return res.status(404).send('Not Found');
+    }
+
+    try {
+        const userId = req.session.user?.id;
+        const userPosts = await Post.find({ author: userId });
+
+        return res.render(`partials/${tab}`, {
+            layout: false,
+            userPosts,
+            user: req.session.user // if needed in your partial
+        });
+    } catch (err) {
+        console.error('Error loading tab:', err);
+        return res.status(500).send('Internal server error');
+    }
+});
+
 
 export default router;

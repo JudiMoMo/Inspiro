@@ -14,6 +14,7 @@ import homeRouter from './routes/home.js';
 import profileRouter from './routes/profile.js';
 import postRouter from './routes/posts.js';
 
+
 dotenv.config(); // Load environment variables
 
 const __filename = fileURLToPath(import.meta.url);

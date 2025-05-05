@@ -7,7 +7,7 @@ block content
     include partials/nav.pug
 
     .profile-container
-        .card
+        section.card
             .profile-header
                 img.profile-img(src=user.profileImage, alt="Profile Image")
                 
@@ -19,62 +19,39 @@ block content
             .profile-actions 
                 button.btn
                     i(class="fas fa-user-edit") 
-                    | Editar perfil
+                    | Edit profile
                 button.btn
                     i(class="fas fa-cog")
-                    | Configuración
+                    | Configuration
                 button.btn
                     i(class="fas fa-sign-out-alt") 
-                    | Cerrar sesión
+                    | Log off
 
-        .user-details
+        section.user-details
             ul
                 li
                     i(class="fas fa-image") 
-                    | 0 publicaciones
+                    | 0 posts
                 li
                     i(class="fas fa-user") 
-                    | 0 seguidores
+                    | 0 followers
                 li
                     i(class="fas fa-user-friends") 
-                    | 0 seguidos
+                    | 0 following
                     
         .user-actions 
             button.btn
                 i(class="fas fa-user-plus") 
-                | Seguir
+                | Follow
                 
-        .tabs
-            button.tab
-            i.icon-globe
-            | Publicaciones
-            button.tab
-            i.icon-image
-            | Portafolio
-            button.tab
-            i.icon-user-tag
-            | Etiquetado
+        section.tabs
+            button.tab(data-tab="posts")
+                h2 Posts
+            button.tab(data-tab="portfolio")
+                h2 Portfolio
+            button.tab(data-tab="tagged")
+                h2 Tagged
 
-        .tab-content
-            .posts
-                .post
-                    p
-                        #{userPosts}
-                    .images 
-                    //-     each image in posts.images
-                    //-         img(src=posts.image, alt="Post Image")
-                    //- p.caption #{posts.caption}
-                    //- p.date #{posts.date}
-                    //- button.btn
-                    //-     i(class="fas fa-heart") 
-                    //-         | Me gusta
-                    //-         | #{posts.likes}
-                    //- button.btn
-                    //-         i(class="fas fa-comment") 
-                    //-         | Comentar
-                    //-         | #{posts.comments}
-                    //- button.btn
-                    //-     i(class="fas fa-share") 
-                    //-         | Compartir
-                    //-         | #{posts.shares}
-
+        section#tab-content
+            include partials/posts.pug
+            

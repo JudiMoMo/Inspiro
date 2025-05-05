@@ -1,0 +1,15 @@
+.posts
+        for post in userPosts
+            .post
+                .post-images 
+                    if post.images.length > 0
+                        each image in post.images
+                            img(src=image, alt="Post Image")
+                .post-content
+                h3 #{post.title}
+                p #{post.content}
+                button.btn
+                    i(class="fas fa-heart") 
+                    | Me gusta
+
+<script src="/javascripts/script_posts.js"></script>
