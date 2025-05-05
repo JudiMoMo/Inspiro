@@ -16,34 +16,65 @@ block content
                 //- p.bio #{user.bio}
                 //- button.btn FOLLOW ME
 
-            .user-actions
-                i(class="fas fa-user") 
-                i(class="fab fa-instagram")
+            .profile-actions 
+                button.btn
+                    i(class="fas fa-user-edit") 
+                    | Editar perfil
+                button.btn
+                    i(class="fas fa-cog")
+                    | Configuración
+                button.btn
+                    i(class="fas fa-sign-out-alt") 
+                    | Cerrar sesión
 
-//-             .user-details
-//-                 ul
-//-                     li
-//-                     i.icon-email
-//-                     | #{user.email}
-//-                     li
-//-                     i.icon-category
-//-                     | #{user.category}
-//-                     // Add more user icons/details if needed
+        .user-details
+            ul
+                li
+                    i(class="fas fa-image") 
+                    | 0 publicaciones
+                li
+                    i(class="fas fa-user") 
+                    | 0 seguidores
+                li
+                    i(class="fas fa-user-friends") 
+                    | 0 seguidos
+                    
+        .user-actions 
+            button.btn
+                i(class="fas fa-user-plus") 
+                | Seguir
+                
+        .tabs
+            button.tab
+            i.icon-globe
+            | Publicaciones
+            button.tab
+            i.icon-image
+            | Portafolio
+            button.tab
+            i.icon-user-tag
+            | Etiquetado
 
-//-             .tabs
-//-                 button.tab
-//-                 i.icon-globe
-//-                 | Publicaciones
-//-                 button.tab
-//-                 i.icon-image
-//-                 | Portafolio
-//-                 button.tab
-//-                 i.icon-user-tag
-//-                 | Etiquetado
-
-//-             h4 PORTAFOLIO
-//-             .portfolio
-//-                 .item.large
-//-                 .item.small
-//-                 .item.small      
+        .tab-content
+            .posts
+                .post
+                    p
+                        #{userPosts}
+                    .images 
+                    //-     each image in posts.images
+                    //-         img(src=posts.image, alt="Post Image")
+                    //- p.caption #{posts.caption}
+                    //- p.date #{posts.date}
+                    //- button.btn
+                    //-     i(class="fas fa-heart") 
+                    //-         | Me gusta
+                    //-         | #{posts.likes}
+                    //- button.btn
+                    //-         i(class="fas fa-comment") 
+                    //-         | Comentar
+                    //-         | #{posts.comments}
+                    //- button.btn
+                    //-     i(class="fas fa-share") 
+                    //-         | Compartir
+                    //-         | #{posts.shares}
 

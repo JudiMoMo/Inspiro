@@ -15,10 +15,8 @@ router.get('/register', async (req, res) => {
 // Handle registration with file upload
 router.post('/register', upload.single('profileImage'), async (req, res) => {
   try {
-    console.log('File received:', req.file); // Check if file is received
     const profileImagePath = req.file ? '/uploads/' + req.file.filename : null;
 
-    console.log('Registering user:', req.body);
 
     //We first need to check if the user email is already in the database
 

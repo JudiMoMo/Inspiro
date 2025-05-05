@@ -15,8 +15,7 @@ router.get('/', async (req, res) => {
     // Fetch the posts created by the user
     const posts = await Post.find({ author: req.session.user.id }).sort({ createdAt: -1 }); // Sort by date created (optional)
 
-
-    return res.render('profile', { user: req.session.user, posts: posts }); // Render the profile page with user data
+    return res.render('profile', { user: req.session.user, userPosts: posts }); // Render the profile page with user data
 
 
 
