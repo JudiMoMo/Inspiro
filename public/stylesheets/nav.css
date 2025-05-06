@@ -92,6 +92,10 @@
     display: block;
   }
 
+  .navbar{
+    margin-left: 220px;
+  }
+
 }
 
 /* Desktop view */

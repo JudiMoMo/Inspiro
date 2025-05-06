@@ -1,15 +1,16 @@
-extends layout 
+extends home_layout
 
 block styles
-  link(rel="stylesheet", href="/stylesheets/home.css")
-  
+
 block content
+  include partials/options.pug
   include partials/nav.pug
-  .container
+
+  .container.main-container
     h1 Hello, #{user.username}!
     p Welcome back to your personalized home page.
-    //- p Email: #{user.id}
-    //- if user.profileImage
-    //-   img(src=user.profileImage alt='Profile Image')
-    //- a(href='/users/logout') Logout
+        //- p Email: #{user.id}
+        //- if user.profileImage
+        //-   img(src=user.profileImage alt='Profile Image')
+        //- a(href='/users/logout') Logout
 

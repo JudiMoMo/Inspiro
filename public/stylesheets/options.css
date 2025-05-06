@@ -1,0 +1,85 @@
+/* ✅ Mobile first: bottom nav bar */
+.navOptionbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #ccc;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+    padding: 0 1rem;
+  }
+  
+  .navOption {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .navOption a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .navOption a:hover {
+    background-color: #eaeaea;
+    color: #000;
+  }
+  
+  .navOption a span.logo {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #222;
+  }
+  
+  .navOption img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+  }
+  
+  /* ✅ Tablet/Desktop: switch to vertical left-side nav */
+  @media (min-width: 768px) {
+    .navOptionbar {
+      top: 0;
+      bottom: unset;
+      left: 0;
+      height: 100vh;
+      width: 220px;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 1rem;
+      border-right: 1px solid #ccc;
+      border-top: none;
+    }
+  
+    .navOption {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  
+    .navOption a {
+      width: 100%;
+      font-size: 1rem;
+      padding: 0.6rem 1rem;
+    }
+  }
+  

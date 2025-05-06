@@ -8,8 +8,18 @@
                 .post-content
                 h3 #{post.title}
                 p #{post.content}
-                button.btn
-                    i(class="fas fa-heart") 
-                    | Me gusta
+                .actions
+                    .principal-actions
+                        button.btn.like-btn
+                            i(class="fas fa-heart") 
+                        button.btn.comment-btn
+                            i(class="fas fa-comment") 
+                        button.btn.share-btn
+                            i(class="fas fa-share") 
+                    .secondary-actions
+                        button.btn.save 
+                            i(class="fas fa-bookmark")
+                        
+                    
 
-<script src="/javascripts/script_posts.js"></script>
+<script src="/javascripts/script_tab_selector.js"></script>

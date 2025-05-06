@@ -4,9 +4,10 @@ block styles
     link(rel="stylesheet", href="/stylesheets/profile.css")
 
 block content
-    include partials/nav.pug
+    include partials/options.pug
 
-    .profile-container
+    include partials/nav.pug
+    .profile-container.main-container
         section.card
             .profile-header
                 img.profile-img(src=user.profileImage, alt="Profile Image")
@@ -52,6 +53,6 @@ block content
             button.tab(data-tab="tagged")
                 h2 Tagged
 
-        section#tab-content
+        section#tab-content.tab-content
             include partials/posts.pug
             

@@ -7,26 +7,41 @@
     box-sizing: border-box;
     font-size: 15px;
 }
+
 :root {
-    --colorname1: #ff0000; /* Red color */
-    --colorname2: #000000; /* Black color */
-    --colorname3: #ffffff; /* White color */
-    --colorname4: #333333; /* Dark gray color for text */
+    --colorname1: #ff0000;
+    /* Red color */
+    --colorname2: #000000;
+    /* Black color */
+    --colorname3: #ffffff;
+    /* White color */
+    --colorname4: #333333;
+    /* Dark gray color for text */
 
 
-    --primary-color: #ff0000; /* Red color */
-    --secondary-color: #000000; /* Black color */
-    --background-color: #ffffff; /* White color */
-    --text-color: #333333; /* Dark gray color for text */
-    
-    
-    
-    --font-size: 16px; /* Base font size */
-    --h1-font-size: 2.5rem; /* Font size for h1 */
-    --h2-font-size: 2rem; /* Font size for h2 */
-    --h3-font-size: 1.75rem; /* Font size for h3 */
-    --h4-font-size: 1.5rem; /* Font size for h4 */
-    --h5-font-size: 1.25rem; /* Font size for h5 */
+    --primary-color: #ff0000;
+    /* Red color */
+    --secondary-color: #000000;
+    /* Black color */
+    --background-color: #ffffff;
+    /* White color */
+    --text-color: #333333;
+    /* Dark gray color for text */
+
+
+
+    --font-size: 16px;
+    /* Base font size */
+    --h1-font-size: 2.5rem;
+    /* Font size for h1 */
+    --h2-font-size: 2rem;
+    /* Font size for h2 */
+    --h3-font-size: 1.75rem;
+    /* Font size for h3 */
+    --h4-font-size: 1.5rem;
+    /* Font size for h4 */
+    --h5-font-size: 1.25rem;
+    /* Font size for h5 */
 }
 
 
@@ -39,6 +54,7 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
 /* Apply Tilt Neon to headings */
 h1,
 h2,
@@ -64,19 +80,48 @@ button {
 h1 {
     font-size: var(--h1-font-size);
 }
+
 h2 {
     font-size: var(--h2-font-size);
 }
+
 h3 {
     font-size: var(--h3-font-size);
 }
+
 h4 {
     font-size: var(--h4-font-size);
 }
+
 h5 {
     font-size: var(--h5-font-size);
 }
 
 .strong {
     font-weight: bold;
+}
+
+/* Main container styles */
+.main-container {
+    margin-bottom: 100px;
+    /* same as sidebar width */
+    /* padding: 1rem; */
+}
+
+
+.error-message {
+    color: red;
+    margin-bottom: 1em;
+    font-weight: bold;
+  }
+  
+
+
+@media (min-width: 768px) {
+    .main-container {
+        margin-left: 220px;
+        margin-bottom: 0;
+        /* same as sidebar width */
+        /* padding: 1rem; */
+    }
 }

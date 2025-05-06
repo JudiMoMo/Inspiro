@@ -1,7 +1,9 @@
 import express from 'express';
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs'; //For password hashing
-import upload from '../config/MulterConfig.js'; // 👈 Import your multer setup
+import userUpload from '../config/MulterConfigUser.js'; // ✅ correct casing
+import path from 'path';
+import fs from 'fs'; // For file system operations
 
 const router = express.Router();
 
@@ -11,42 +13,53 @@ router.get('/register', async (req, res) => {
   res.render('register'); // Render the registration page
 });
 
+
+
 //POST
-// Handle registration with file upload
-router.post('/register', upload.single('profileImage'), async (req, res) => {
+// POST registration route
+
+router.post('/register', userUpload.single('profileImage'), async (req, res) => {
   try {
-    const profileImagePath = req.file ? '/uploads/' + req.file.filename : null;
+    const { username, email, password } = req.body;
 
+    // 1️⃣ Check for existing email or username
+    const userExists = await User.findOne({ email });
+    if (userExists) return res.status(400).send('Email already exists.');
 
-    //We first need to check if the user email is already in the database
+    const usernameExists = await User.findOne({ username });
+    if (usernameExists) return res.status(400).send('Username already exists.');
 
-    const existingUser = await User.findOne({ email: req.body.email });
-    if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' });
+    // 2️⃣ Set profileImagePath only if file exists
+    let profileImagePath = null;
+    if (req.file) {
+      const ext = path.extname(req.file.originalname);
+      const fileName = 'profile-' + Date.now() + '-' + Math.round(Math.random() * 1e9) + ext;
+
+      const oldPath = req.file.path;
+      const newFolder = path.join('public', 'uploads', username, 'profile');
+      const newPath = path.join(newFolder, fileName);
+
+      fs.mkdirSync(newFolder, { recursive: true });
+      fs.renameSync(oldPath, newPath);
+
+      profileImagePath = `/uploads/${username}/profile/${fileName}`;
     }
-    //We also need to check if the username is already in the database
 
-    const existingUsername = await User.findOne({ username: req.body.username });
-    if (existingUsername) {
-      return res.status(400).json({ message: 'Username already exists' });
-    }
-
-    //Now that we have checked if the user already exists, we can create a new user
-    //Hash the password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
+    // 3️⃣ Hash password and save user
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
-      ...req.body,
+      username,
+      email,
       password: hashedPassword,
       profileImage: profileImagePath,
     });
 
-    savedUser = await newUser.save();
-    res.redirect('/'); // Redirect to the login page after successful registration
+    await newUser.save();
+
+    res.redirect('/');
   } catch (err) {
-    console.error('Error registering user:', err); // More specific error logs
-    res.status(500).json({ message: 'Error registering user' });
+    console.error('Registration error:', err);
+    res.status(500).send('Internal Server Error');
   }
 });
 
@@ -68,14 +81,14 @@ router.post('/login', async (req, res) => {
     // Find user by email
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).send('Invalid email or password');
+      return res.status(400).render('index', { error: 'Invalid email or password', email }); // Keep entered email
     }
 
 
     // Compare the passwords
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).send('Invalid email or password');
+      return res.status(400).render('index', { error: 'Invalid email or password', email });
     }
 
     // Set session data

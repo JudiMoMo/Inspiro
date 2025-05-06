@@ -36,7 +36,7 @@ app.use(cookieParser());
 
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/uploads', express.static('public/uploads'));
+app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 
@@ -56,7 +56,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/home', homeRouter);
 app.use('/profile', profileRouter);
-app.use('/post', postRouter);
+app.use('/create-post', postRouter);
 
 // 404 error handler
 app.use((req, res, next) => {
