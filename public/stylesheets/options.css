@@ -61,7 +61,7 @@
       bottom: unset;
       left: 0;
       height: 100vh;
-      width: 220px;
+      width: 80px;
       flex-direction: column;
       align-items: flex-start;
       justify-content: flex-start;
@@ -73,7 +73,8 @@
     .navOption {
       flex-direction: column;
       align-items: flex-start;
-      gap: 1rem;
+      padding-top: 3em;
+      gap: 1.5rem;
     }
   
     .navOption a {

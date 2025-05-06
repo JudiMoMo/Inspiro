@@ -29,7 +29,7 @@ router.get('/partials/:tab', async (req, res) => {
 
     try {
         const userId = req.session.user?.id;
-        const userPosts = await Post.find({ author: userId });
+        const userPosts = await Post.find({ author: userId }).sort({ createdAt: -1 });
 
         return res.render(`partials/${tab}`, {
             layout: false,

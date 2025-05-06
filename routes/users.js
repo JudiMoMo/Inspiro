@@ -48,8 +48,7 @@ router.post('/register', userUpload.single('profileImage'), async (req, res) => 
     // 3️⃣ Hash password and save user
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
-      username,
-      email,
+      ...req.body,
       password: hashedPassword,
       profileImage: profileImagePath,
     });
@@ -112,6 +111,18 @@ router.post('/login', async (req, res) => {
   } catch (err) {
     return res.status(500).send('Server error');
   }
+});
+
+// Logout route
+router.get('/logout', (req, res) => {
+  // Clear session data
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Logout error:', err);
+      return res.status(500).send('Internal Server Error');
+    }
+    res.redirect('/'); // Redirect to the home page after logout
+  });
 });
 
 

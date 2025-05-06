@@ -21,5 +21,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         });
     });
+
+    //Add event to the like, comment and share buttons
+    const likeButtons = document.querySelectorAll('.like-btn');
+    const commentButtons = document.querySelectorAll('.comment-btn');
+    const shareButtons = document.querySelectorAll('.share-btn');
+
+    likeButtons.forEach(button => {
+
+    })
 });
+
+//get the event for the follow button
+async function followUser(userId) {
+    try {
+        const res = await fetch(`/follow/${userId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (res.ok) {
+            alert('Followed successfully!');
+        } else {
+            alert('Something went wrong');
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
 

@@ -10,15 +10,19 @@
                 p #{post.content}
                 .actions
                     .principal-actions
-                        button.btn.like-btn
+                        button.btn.like-btn.tooltip
                             i(class="fas fa-heart") 
-                        button.btn.comment-btn
+                                span.tooltiptext Like this post
+                        button.btn.comment-btn.tooltip
                             i(class="fas fa-comment") 
-                        button.btn.share-btn
+                                 span.tooltiptext Comment on this post
+                        button.btn.share-btn.tooltip
                             i(class="fas fa-share") 
+                                span.tooltiptext Share this post
                     .secondary-actions
-                        button.btn.save 
+                        button.btn.save.tooltip
                             i(class="fas fa-bookmark")
+                                span.tooltiptext Save this post
                         
                     
 

@@ -14,19 +14,35 @@ block content
                 
             .user-info
                 h1 #{user.username}
-                //- p.bio #{user.bio}
-                //- button.btn FOLLOW ME
+                .user-actions 
+                    button.btn.tooltip
+                        i(class="fas fa-user-plus" type="button" onclick=`followUser('${user._id}')`) 
+                            span.tooltiptext Follow
+                    button.btn.tooltip
+                        i(class="fas fa-star")
+                            span.tooltiptext Add to Favorites
+                    button.btn.tooltip
+                        i(class="fas fa-share-alt")
+                            span.tooltiptext Share Profile
 
             .profile-actions 
-                button.btn
+                button.btn.tooltip
                     i(class="fas fa-user-edit") 
-                    | Edit profile
-                button.btn
+                    span.tooltiptext Edit Profile
+                button.btn.tooltip
                     i(class="fas fa-cog")
-                    | Configuration
-                button.btn
-                    i(class="fas fa-sign-out-alt") 
-                    | Log off
+                        span.tooltiptext Settings
+                form(action="/users/logout", method="get")
+                    button.btn.tooltip(type="submit")
+                        i(class="fas fa-sign-out-alt")
+                            span.tooltiptext Logout
+                    
+        section.user-desription 
+            p.name #{user.name}
+            p.bio #{user.bio}
+            p.location #{user.location}
+            p.website #{user.website}
+
 
         section.user-details
             ul
@@ -39,11 +55,6 @@ block content
                 li
                     i(class="fas fa-user-friends") 
                     | 0 following
-                    
-        .user-actions 
-            button.btn
-                i(class="fas fa-user-plus") 
-                | Follow
                 
         section.tabs
             button.tab(data-tab="posts")
