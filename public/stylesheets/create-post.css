@@ -50,8 +50,8 @@ form {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 250px;
-  background-color: #000;
+  height: 100px;
+  background-color: lightgrey;
   color: #fff;
   border: 2px dashed #555;
   border-radius: 10px;
@@ -70,14 +70,17 @@ form {
 
 .image-preview-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 1em;
   margin-top: 1em;
   flex-wrap: wrap;
 }
 
 .image-preview-container img.preview-img {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -114,5 +117,10 @@ button[type="submit"]:hover {
     width: 60%;
     padding: 0 5em;
     margin: auto;
+  }
+  .image-preview-container {
+    flex-direction: row;
+    justify-content: left;
+    gap:0;
   }
 }

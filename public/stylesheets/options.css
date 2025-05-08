@@ -9,10 +9,10 @@
     border-top: 1px solid #ccc;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    /* justify-content: space-around; */
     align-items: center;
     z-index: 1000;
-    padding: 0 1rem;
+    padding: 0 0rem;
   }
   
   .navOption {
@@ -20,7 +20,7 @@
     flex-direction: row;
     gap: 1rem;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
   }
   

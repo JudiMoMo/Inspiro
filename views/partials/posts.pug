@@ -1,29 +1,28 @@
 .posts
-        for post in userPosts
-            .post
-                .post-images 
-                    if post.images.length > 0
-                        each image in post.images
-                            img(src=image, alt="Post Image")
-                .post-content
+    each post in userPosts
+        .post
+            .post-images 
+                if post.images.length > 0
+                each image in post.images
+                    img(src=image, alt="Post Image")
+            .post-content
                 h3 #{post.title}
                 p #{post.content}
-                .actions
-                    .principal-actions
-                        button.btn.like-btn.tooltip
-                            i(class="fas fa-heart") 
-                                span.tooltiptext Like this post
-                        button.btn.comment-btn.tooltip
-                            i(class="fas fa-comment") 
-                                 span.tooltiptext Comment on this post
-                        button.btn.share-btn.tooltip
-                            i(class="fas fa-share") 
-                                span.tooltiptext Share this post
+            .actions
+                .principal-actions
+                    button.btn.like-btn.tooltip(data-post-id=post._id,class=likedPostIds.includes(post._id.toString()) ? 'liked text-red' : '')
+                        i(class=likedPostIds.includes(post._id.toString()) ? 'fas fa-heart' : 'far fa-heart') 
+                        span.tooltiptext Like this post
+                    button.btn.comment-btn.tooltip
+                        i(class="far fa-comment") 
+                        span.tooltiptext Comment on this post
+                    button.btn.share-btn.tooltip
+                        i(class="fas fa-share") 
+                        span.tooltiptext Share this post
                     .secondary-actions
-                        button.btn.save.tooltip
-                            i(class="fas fa-bookmark")
-                                span.tooltiptext Save this post
-                        
-                    
+                    button.btn.save.tooltip
+                        i(class="far fa-bookmark")
+                        span.tooltiptext Save this post
+
 
 <script src="/javascripts/script_tab_selector.js"></script>

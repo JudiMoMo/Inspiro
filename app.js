@@ -9,9 +9,11 @@ import { dirname } from 'path';
 import dotenv from 'dotenv';
 
 import indexRouter from './routes/index.js';
-import usersRouter from './routes/users.js';
+import authRouter from './routes/authRoutes.js';
+import likeRoutes from './routes/likeRoutes.js';
+// import usersRouter from './routes/users.js';
 import homeRouter from './routes/home.js';
-import profileRouter from './routes/profile.js';
+import profileRouter from './routes/profileRoutes.js';
 import postRouter from './routes/posts.js';
 
 
@@ -53,10 +55,13 @@ app.use(session({
 
 // Routes
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/auth', authRouter);
+// app.use('/users', usersRouter);
 app.use('/home', homeRouter);
 app.use('/profile', profileRouter);
 app.use('/create-post', postRouter);
+app.use('/posts', likeRoutes);
+
 
 // 404 error handler
 app.use((req, res, next) => {
