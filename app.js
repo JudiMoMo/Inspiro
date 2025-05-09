@@ -14,7 +14,7 @@ import likeRoutes from './routes/likeRoutes.js';
 // import usersRouter from './routes/users.js';
 import homeRouter from './routes/home.js';
 import profileRouter from './routes/profileRoutes.js';
-import postRouter from './routes/posts.js';
+import postRouter from './routes/postRoutes.js';
 
 
 dotenv.config(); // Load environment variables
@@ -59,7 +59,7 @@ app.use('/auth', authRouter);
 // app.use('/users', usersRouter);
 app.use('/home', homeRouter);
 app.use('/profile', profileRouter);
-app.use('/create-post', postRouter);
+app.use('/posts', postRouter);
 app.use('/posts', likeRoutes);
 
 

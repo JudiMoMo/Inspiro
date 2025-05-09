@@ -9,7 +9,7 @@
 /* user card header */
 .card {
     position: relative;
-    border: 2PX SOLID BLUE;
+    border: 2px solid black;
     width: 100%;
 }
 
@@ -141,7 +141,8 @@
 
 
 
-.principal-actions, .secondary-actions {
+.principal-actions,
+.secondary-actions {
     width: 50%;
 }
 
@@ -178,5 +179,9 @@
 @media (min-width: 992px) {
     .posts {
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .nav-right {
+        justify-content: flex-end;
     }
 }

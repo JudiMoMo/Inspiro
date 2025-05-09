@@ -6,11 +6,11 @@ block styles
 block content
 
   .container
-    .return 
-      a(href="/")
-        i(class="fas fa-arrow-left") Back to Home
 
-    form(method="POST", action="../create-post", enctype="multipart/form-data")
+    form(method="POST", action="../posts/create-post", enctype="multipart/form-data")
+      .return 
+        a(href="/home")
+          | Back to Home
       h1 Create a New Post
       .form-group
         label.upload-area(for="image") Select images to upload:
