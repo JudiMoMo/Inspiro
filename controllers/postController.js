@@ -1,9 +1,14 @@
 import Post from '../models/Post.js';
 
+
+//Render the create post form
 export const renderCreatePostForm = (req, res) => {
   res.render('create-post', { user: req.session.user });
 };
 
+
+//Create a new post
+// This function handles the creation of a new post
 export const createPost = async (req, res) => {
   try {
     const username = req.body.username || req.session.user.username;
@@ -30,6 +35,9 @@ export const createPost = async (req, res) => {
   }
 };
 
+
+//Render the edit post form
+// This function fetches the post by ID and renders the edit form
 export const renderEditPostForm = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -42,6 +50,9 @@ export const renderEditPostForm = async (req, res) => {
   }
 };
 
+
+//Update a post
+// This function updates the post with the provided data
 export const updatePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -62,6 +73,9 @@ export const updatePost = async (req, res) => {
   }
 };
 
+
+//Delete a post
+// This function deletes the post by ID
 export const deletePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -75,6 +89,9 @@ export const deletePost = async (req, res) => {
   }
 };
 
+
+//Get all posts by a user
+// This function fetches all posts by a specific user
 export const getUserPosts = async (req, res) => {
   try {
     const userId = req.params.id; // Or use req.session.user.id for logged-in user
@@ -89,5 +106,29 @@ export const getUserPosts = async (req, res) => {
   } catch (err) {
     console.error('Error fetching user posts:', err);
     res.status(500).send('Error fetching user posts: ' + err.message);
+  }
+};
+
+//Get the view post page for a specific post
+// This function fetches the view post page for a specific post
+export const viewPost = async (req, res) => {
+  const { userId, postId } = req.params;
+
+  try {
+    const post = await Post.findOne({ _id: postId, author: userId })
+                           .populate('author', 'username');
+
+    if (!post) {
+      return res.status(404).send('Post not found');
+    }
+
+    return res.render('viewPost', {
+      layout: 'main',
+      post,
+      user: req.session.user
+    });
+  } catch (err) {
+    console.error('Error loading post:', err);
+    return res.status(500).send('Internal server error');
   }
 };

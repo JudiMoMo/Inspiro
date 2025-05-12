@@ -1,12 +1,12 @@
 .posts
     each post in userPosts
         .post
-            .post-images 
-                if post.images.length > 0
+            .post-images(onclick=`window.location.href = '/posts/user/${post.author}/post/${post._id}'`) 
+                if post.images && post.images.length > 0
                 each image in post.images
                     img(src=image, alt="Post Image")
             .post-content
-                h3 #{post.title}
+                h3(onclick=`window.location.href = '/posts/user/${post.author}/post/${post._id}'`) #{post.title}
                 p #{post.content}
             .actions
                 .principal-actions

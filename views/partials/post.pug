@@ -1,0 +1,14 @@
+
+.specific-post
+  .post
+    .post-header
+      h2.post-title
+        a(href=`/posts/${post.id}`) #{post.title}
+      .post-meta
+        span.post-date #{post.date}
+        span.post-author #{post.author}
+    .post-content
+      p #{post.content}
+    .post-footer
+      a(href=`/posts/${post.id}/edit`) Edit Post
+      a(href=`/posts/${post.id}/delete`) Delete Post
