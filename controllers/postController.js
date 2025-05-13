@@ -1,4 +1,6 @@
 import Post from '../models/Post.js';
+import Like from '../models/Like.js';
+import Comment from '../models/Comment.js';
 
 
 //Render the create post form
@@ -116,16 +118,27 @@ export const viewPost = async (req, res) => {
 
   try {
     const post = await Post.findOne({ _id: postId, author: userId })
-                           .populate('author', 'username');
+      .populate('author', 'username');
 
     if (!post) {
       return res.status(404).send('Post not found');
     }
 
-    return res.render('viewPost', {
+    const postLikes = await Like.find({ post: postId }).populate('user', 'username');
+    const postComments = await Comment.find({ post: postId })
+      .populate('user', 'username')
+      .sort({ createdAt: -1 });
+    
+    // Extract only the post IDs of liked posts
+    const likedPostIds = postLikes.map(like => like.post.toString());
+
+    return res.render('specificPost', {
       layout: 'main',
       post,
-      user: req.session.user
+      user: req.session.user,
+      postLikes, 
+      postComments,
+      likedPostIds
     });
   } catch (err) {
     console.error('Error loading post:', err);

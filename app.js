@@ -15,6 +15,7 @@ import likeRoutes from './routes/likeRoutes.js';
 import homeRouter from './routes/home.js';
 import profileRouter from './routes/profileRoutes.js';
 import postRouter from './routes/postRoutes.js';
+import commentRouter from './routes/commentRoutes.js';
 
 
 dotenv.config(); // Load environment variables
@@ -61,6 +62,7 @@ app.use('/home', homeRouter);
 app.use('/profile', profileRouter);
 app.use('/posts', postRouter);
 app.use('/posts', likeRoutes);
+app.use('/posts', commentRouter);
 
 
 // 404 error handler

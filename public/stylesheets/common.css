@@ -121,9 +121,9 @@ section {
     position: relative;
     display: inline-block;
     cursor: pointer;
-  }
-  
-  .tooltip .tooltiptext {
+}
+
+.tooltip .tooltiptext {
     visibility: hidden;
     width: max-content;
     background-color: #333;
@@ -133,28 +133,33 @@ section {
     border-radius: 6px;
     position: absolute;
     z-index: 1;
-    bottom: 125%; /* Above the button */
+    bottom: 125%;
+    /* Above the button */
     left: 50%;
     transform: translateX(-50%);
     opacity: 0;
     transition: opacity 0.3s;
     font-size: 0.9rem;
     white-space: nowrap;
-  }
-  
-  .tooltip:hover .tooltiptext {
+}
+
+.tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
-  }
-  
+}
+
 
 
 .error-message {
     color: red;
     margin-bottom: 1em;
     font-weight: bold;
-  }
-  
+}
+
+.post img:hover, .post h3:hover{
+    cursor: pointer;
+}
+
 
 
 @media (min-width: 768px) {

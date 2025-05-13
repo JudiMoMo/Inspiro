@@ -1,14 +1,19 @@
 import comments from '../models/Comment.js';
+import mongoose from 'mongoose';
 
 //specific user create a comment
 export const createComment = async (req, res) => {
     try {
-        const { post, user, content } = req.body;
-        const newComment = new comments({ post, user, content, createdAt: Date.now(), updatedAt: Date.now() });
+        const user = new mongoose.Types.ObjectId(req.session.user.id);
+        const post = new mongoose.Types.ObjectId(req.params.postId);
+        const newComment = new comments({ ...req.body, user, post, createdAt: Date.now(), updatedAt: Date.now() });
+        
         await newComment.save();
-        res.status(201).json(newComment);
+        res.redirect("back");
+
+    
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: error.message});
     }
 };
 
@@ -52,6 +57,20 @@ export const updateComment = async (req, res) =>{
         }
 
         res.status(200).json(updatedComment);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+//With a specific comment delete the comment
+export const deleteComment = async (req, res) => {
+    try {
+        const { commentId } = req.params;
+        const deletedComment = await comments.findByIdAndDelete(commentId);
+        if (!deletedComment) {
+            return res.status(404).json({ message: 'Comment not found' });
+        }
+        res.status(200).json({ message: 'Comment deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

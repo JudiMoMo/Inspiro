@@ -14,7 +14,7 @@
                         i(class=likedPostIds.includes(post._id.toString()) ? 'fas fa-heart' : 'far fa-heart') 
                         span.tooltiptext Like this post
                     button.btn.comment-btn.tooltip
-                        i(class="far fa-comment") 
+                        i(class="far fa-comment")(onclick=`window.location.href = '/posts/user/${post.author}/post/${post._id}'`) 
                         span.tooltiptext Comment on this post
                     button.btn.share-btn.tooltip
                         i(class="fas fa-share") 

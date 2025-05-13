@@ -1,0 +1,106 @@
+extends layout
+
+block styles 
+  link(rel='stylesheet', href='/stylesheets/specificPost.css')
+
+block content
+  .post-view-container
+    .post-specific
+        .post-images
+            if post.images && post.images.length > 0
+                each image in post.images
+                    img(src=`${image}`, alt='Post Image')
+            else
+                p No images in this post.
+        .post-content
+
+            .post-author
+                a(href=post.author.profileImage)
+                    img(src=user.profileImage, alt="profile image")
+                    h3 #{post.author.username}
+            
+            .actions
+                .principal-actions
+                    button.btn.like-btn.tooltip(data-post-id=post._id,class=likedPostIds.includes(post._id.toString()) ? 'liked text-red' : '')
+                        i(class=likedPostIds.includes(post._id.toString()) ? 'fas fa-heart' : 'far fa-heart') 
+                        span.tooltiptext Like this post
+                    
+                    button.btn.share-btn.tooltip
+                        i(class="fas fa-share") 
+                        span.tooltiptext Share this post
+                .secondary-actions
+                    button.btn.save.tooltip
+                        i(class="far fa-bookmark")
+                        span.tooltiptext Save this post
+
+            .likes 
+                p #{post.likes.length} Likes
+            .post-title 
+                h1= post.title
+            
+            .post-date
+                small Posted on #{post.createdAt.toDateString()}
+            
+            .post-description
+                if post.content
+                    p= post.content                  
+
+            .form-comment 
+                form(action=`/posts/user/${post.author}/post/${post._id}`, method="POST")
+                    input(type="hidden", name="post", value=post._id)
+                    input(type="text", name="content", placeholder="Write a comment...", required)
+                    button.btn.comment-btn.tooltip(type="submit")
+                        i(class="fas fa-location-arrow")
+                        span.tooltiptext Comment
+
+            .try
+                h1 #{comments}
+            .comments
+                if postComments.length > 0
+                    p= postComments.length + " comments"
+                else
+                    p No comments yet.
+                each comment in postComments
+                    .comment
+                        p #{comment.user.username}
+                        p  #{comment.content}
+                //-     .comment-author
+                //-     a(href=comment.author.profileImage)
+                //-     img(src=user.profileImage, alt="profile image")
+                //-     h3 #{comment.author.username}
+                //-     .comment-content
+                //-         p= comment.content
+                //-         small Posted on #{comment.createdAt.toDateString()}
+                //-         if comment.author._id == user._id
+                //-             button.btn.delete-comment-btn.tooltip(data-comment-id=comment._id)
+                //-                 i(class="fas fa-trash")
+                //-                 span.tooltiptext Delete this comment
+                //-         if comment.author._id != user._id
+                //-             button.btn.reply-btn.tooltip
+                //-                 i(class="fas fa-reply")
+                //-                 span.tooltiptext Reply to this comment
+                //-         if comment.author._id == user._id
+                //-             button.btn.edit-comment-btn.tooltip
+                //-                 i(class="fas fa-edit")
+                //-                 span.tooltiptext Edit this comment
+                //-         if comment.author._id != user._id
+                //-             button.btn.report-btn.tooltip
+                //-                 i(class="fas fa-flag")
+                //-                 span.tooltiptext Report this comment
+                //-         if comment.author._id != user._id
+                //-             button.btn.block-btn.tooltip
+                //-                 i(class="fas fa-user-slash")
+                //-                 span.tooltiptext Block this user
+
+            
+
+
+            
+            
+            
+            
+
+
+    a.btn(href='/profile') ← Back to Profile
+
+    script(src="/javascripts/user_actions.js") 
