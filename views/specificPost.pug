@@ -14,7 +14,7 @@ block content
                 p No images in this post.
         .post-content
 
-            .post-author
+            .post-user.post-author
                 a(href=post.author.profileImage)
                     img(src=user.profileImage, alt="profile image")
                     h3 #{post.author.username}
@@ -45,6 +45,7 @@ block content
                 if post.content
                     p= post.content                  
 
+            hr
             .form-comment 
                 form(action=`/posts/user/${post.author}/post/${post._id}`, method="POST")
                     input(type="hidden", name="post", value=post._id)
@@ -53,53 +54,23 @@ block content
                         i(class="fas fa-location-arrow")
                         span.tooltiptext Comment
 
-            .try
-                h1 #{comments}
-            .comments
+            .comment-count 
                 if postComments.length > 0
                     p= postComments.length + " comments"
                 else
                     p No comments yet.
+            .comments
                 each comment in postComments
                     .comment
-                        p #{comment.user.username}
+                        .post-user.comment-author
+                            a(href=comment.user.id)
+                                img(src=comment.user.profileImage, alt="profile image")
+                                h3 #{comment.user.username}
+                                
+                        .comment-content 
+                            p #{comment.content}
+                            small Posted on #{comment.createdAt.toDateString()}
                         p  #{comment.content}
-                //-     .comment-author
-                //-     a(href=comment.author.profileImage)
-                //-     img(src=user.profileImage, alt="profile image")
-                //-     h3 #{comment.author.username}
-                //-     .comment-content
-                //-         p= comment.content
-                //-         small Posted on #{comment.createdAt.toDateString()}
-                //-         if comment.author._id == user._id
-                //-             button.btn.delete-comment-btn.tooltip(data-comment-id=comment._id)
-                //-                 i(class="fas fa-trash")
-                //-                 span.tooltiptext Delete this comment
-                //-         if comment.author._id != user._id
-                //-             button.btn.reply-btn.tooltip
-                //-                 i(class="fas fa-reply")
-                //-                 span.tooltiptext Reply to this comment
-                //-         if comment.author._id == user._id
-                //-             button.btn.edit-comment-btn.tooltip
-                //-                 i(class="fas fa-edit")
-                //-                 span.tooltiptext Edit this comment
-                //-         if comment.author._id != user._id
-                //-             button.btn.report-btn.tooltip
-                //-                 i(class="fas fa-flag")
-                //-                 span.tooltiptext Report this comment
-                //-         if comment.author._id != user._id
-                //-             button.btn.block-btn.tooltip
-                //-                 i(class="fas fa-user-slash")
-                //-                 span.tooltiptext Block this user
-
-            
-
-
-            
-            
-            
-            
-
 
     a.btn(href='/profile') ← Back to Profile
 

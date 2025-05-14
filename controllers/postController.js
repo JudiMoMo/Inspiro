@@ -126,7 +126,7 @@ export const viewPost = async (req, res) => {
 
     const postLikes = await Like.find({ post: postId }).populate('user', 'username');
     const postComments = await Comment.find({ post: postId })
-      .populate('user', 'username')
+      .populate('user', 'username profileImage')
       .sort({ createdAt: -1 });
     
     // Extract only the post IDs of liked posts

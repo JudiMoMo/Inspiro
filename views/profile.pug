@@ -7,6 +7,7 @@ block content
     include partials/options.pug
 
     include partials/nav.pug
+    p #{user.id}
     .profile-container.main-container
         section.card
             .profile-header
@@ -26,10 +27,10 @@ block content
                             span.tooltiptext Share Profile
 
             .profile-actions 
-                button.btn.tooltip
+                a.btn.tooltip(href=`/profile/user/${user.id}/edit`)
                     i(class="fas fa-user-edit") 
                     span.tooltiptext Edit Profile
-                button.btn.tooltip
+                a.btn.tooltip
                     i(class="fas fa-cog")
                         span.tooltiptext Settings
                 form(action="/auth/logout", method="get")
@@ -48,7 +49,7 @@ block content
             ul
                 li
                     i(class="fas fa-image") 
-                    | 0 posts
+                    | #{userPosts.length} posts
                 li
                     i(class="fas fa-user") 
                     | 0 followers

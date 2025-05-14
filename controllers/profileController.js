@@ -1,6 +1,8 @@
+import path from 'path';
+import fs from 'fs';
+import User from '../models/User.js';
 import Post from '../models/Post.js';
 import Like from '../models/Like.js';
-import User from '../models/User.js';
 
 export const getProfilePage = async (req, res) => {
   try {
@@ -48,6 +50,24 @@ export const getProfileTab = async (req, res) => {
   }
 };
 
+
+export const getEditProfilePage = async (req, res) => {
+  try {
+    const user = await User.findById(req.session.user.id);
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+    return res.render('edit-profile', { user: req.session.user});
+  } catch (err) {
+    console.error('Error loading edit profile page:', err);
+    return res.status(500).send('Internal server error');
+  }
+}
+
+
+
+
+
 export const postEditProfile = async (req, res) => {
   try {
     const user = await User.findById(req.session.user.id);
@@ -55,31 +75,74 @@ export const postEditProfile = async (req, res) => {
       return res.status(404).send('User not found');
     }
 
-    // Update user profile with new data
+    console.log('Request body:', req.body);
+    console.log('Uploaded files:', req.files); // Assuming you're using upload.fields()
+
+    // Update basic info
     user.name = req.body.name || user.name;
+    user.surname = req.body.surname || user.surname;
     user.bio = req.body.bio || user.bio;
-    user.location = req.body.location || user.location;
-    user.website = req.body.website || user.website;
-    user.profilePicture = req.file ? req.file.path : user.profilePicture; // Assuming you're using multer for file uploads
-    user.coverPicture = req.file ? req.file.path : user.coverPicture; // Assuming you're using multer for file uploads
+    user.gender = req.body.gender || user.gender;
+    user.artistType = req.body.artistType || user.artistType;
+
+    const username = req.body.username || user.username; // Important for folder path
+
+    // === Handle Profile Image ===
+    if (req.files && req.files.profileImage && req.files.profileImage[0]) {
+      const file = req.files.profileImage[0];
+      const ext = path.extname(file.originalname);
+      const fileName = 'profile-' + Date.now() + '-' + Math.round(Math.random() * 1e9) + ext;
+      const newFolder = path.join('public', 'uploads', username, 'profile');
+      const newPath = path.join(newFolder, fileName);
+
+      fs.mkdirSync(newFolder, { recursive: true });
+      fs.renameSync(file.path, newPath);
+
+      user.profileImage = `/uploads/${username}/profile/${fileName}`;
+    }
+
+    // === Handle Cover Image ===
+    if (req.files && req.files.coverImage && req.files.coverImage[0]) {
+      const file = req.files.coverImage[0];
+      const ext = path.extname(file.originalname);
+      const fileName = 'cover-' + Date.now() + '-' + Math.round(Math.random() * 1e9) + ext;
+      const newFolder = path.join('public', 'uploads', username, 'cover');
+      const newPath = path.join(newFolder, fileName);
+
+      fs.mkdirSync(newFolder, { recursive: true });
+      fs.renameSync(file.path, newPath);
+
+      user.coverImage = `/uploads/${username}/cover/${fileName}`;
+    }
+
+    // Save user
     await user.save();
-    req.session.user = user; // Update session with new user data
-    return res.redirect('/profile');
-  }
-  catch (err) {
+
+    // Update session data
+    req.session.user = {
+      id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      username: user.username,
+      profileImage: user.profileImage,
+      coverImage: user.coverImage,
+      isLoggedIn: true
+    };
+
+    // Get user posts and liked posts
+    const posts = await Post.find({ author: user._id }).sort({ createdAt: -1 });
+    const likedPosts = await Like.find({ user: user._id }).select('post');
+    const likedPostIds = likedPosts.map(like => like.post.toString());
+
+    // Render updated profile
+    return res.render('profile', {
+      user: req.session.user,
+      userPosts: posts,
+      likedPostIds: likedPostIds
+    });
+
+  } catch (err) {
     console.error('Error updating profile:', err);
     return res.status(500).send('Internal server error');
   }
-}
-export const getEditProfilePage = async (req, res) => {
-  try {
-    const user = await User.findById(req.session.user.id);
-    if (!user) {
-      return res.status(404).send('User not found');
-    }
-    return res.render('edit-profile', { user: req.session.user });
-  }catch (err) {
-    console.error('Error loading edit profile page:', err);
-    return res.status(500).send('Internal server error');
-  }
-}
+};

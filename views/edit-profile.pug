@@ -1,24 +1,58 @@
 extends layout
 
+block styles
+  link(rel='stylesheet', href='/stylesheets/edit-profile.css')
+
 block content
-  h1 Edit Profile
+    include partials/options.pug
 
-  form(action='/profile', method='POST')
-    .form-group 
-        label(for='name') Name:
-        input(type='text', id='name', name='name', value=user.name, required=true)
+    include partials/nav.pug
 
-    .form-group
-        label(for='email') Email:
-        input(type='email', id='email', name='email', value=user.email, required=true)
+    .main-container.form-container 
+        form(action=`/profile/user/${user.id}/edit`, method='POST', enctype='multipart/form-data')
+            .profile-images
+                .form-group.cover-container
+                    label(for='coverImage' class="cover-upload")
+                        if(user.coverImage)
+                            img#previewCover(src=user.coverImage, alt="Upload Image")
+                        else
+                            img#previewCover(src="/images/cover.jpg", alt="Upload Image")
+                    input(type='file', id='coverImage', name='coverImage' hidden)
+                
+                    .form-group.profile-container
+                        label(for="profileImage" class="profile-upload")
+                            if(user.profileImage)
+                                img#previewImage(src=user.profileImage, alt="Upload Image")
+                            else
+                                img#previewImage(src="/images/profile.png", alt="Upload Image")
+                        input(type="file", name="profileImage", id="profileImage", hidden)                
+            .form-group 
+                label(for='name') Name:
+                input(type='text', id='name', name='name', value=user.name, required)
 
-    .form-group
-        label(for='bio') Bio:
-        textarea(id='bio', name='bio', rows='4', cols='50')= user.bio
+            .form-group 
+                label(for='surname') Surname:
+                input(type='text', id='surname', name='surname', value=user.surname)
 
-    .form-group
-        label(for='profileImage') Profile Image:
-        input(type='file', id='profileImage', name='profileImage')
+            .form-group
+                label(for='email') Email:
+                input(type='email', id='email', name='email', value=user.email, required)
 
-    .form-group
-        button(type='submit') Save Changes
+            .form-group
+                label(for='gender') Gender:
+                select(name='gender', id='gender')
+                    option(value='') Select gender
+                    option(value='female', selected=user.gender=='female') Female
+                    option(value='male', selected=user.gender=='male') Male
+                    option(value='other', selected=user.gender=='other') Other
+
+            .form-group
+                label(for='artistType') Type of Artist:
+                input(type='text', id='artistType', name='artistType', value=user.artistType)
+
+            .form-group
+                label(for='bio') Bio:
+                textarea(id='bio', name='bio', rows='4', cols='50')= user.bio
+
+            .form-group
+                button(type='submit') Save Changes

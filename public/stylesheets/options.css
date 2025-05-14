@@ -61,23 +61,27 @@
       width: 80px;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 1rem;
+      justify-content: start;
+      padding: 0.5rem;
       border-right: 1px solid #ccc;
       border-top: none;
     }
   
     .navOption {
       flex-direction: column;
-      height: 100%;
-      align-items: flex-start;
-      justify-content: flex-start;
+      height: 30%;
+      align-items: center;
+      justify-content: space-between;
+
+      border: 1px solid #ccc;
     }
   
     .navOption a {
       width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-size: 1rem;
-      padding: 0.6rem 1rem;
     }
   }
   
