@@ -16,8 +16,8 @@ block content
                         if(user.coverImage)
                             img#previewCover(src=user.coverImage, alt="Upload Image")
                         else
-                            img#previewCover(src="/images/cover.jpg", alt="Upload Image")
-                    input(type='file', id='coverImage', name='coverImage' hidden)
+                            img#previewCoverImage(src="/images/cover.jpg", alt="Upload Image")
+                    input(type='file', id='coverImage', name='coverImage' hidden onchange="handleImagePreview('coverImage', 'previewCoverImage')")
                 
                     .form-group.profile-container
                         label(for="profileImage" class="profile-upload")
@@ -25,7 +25,11 @@ block content
                                 img#previewImage(src=user.profileImage, alt="Upload Image")
                             else
                                 img#previewImage(src="/images/profile.png", alt="Upload Image")
-                        input(type="file", name="profileImage", id="profileImage", hidden)                
+                        input(type="file", name="profileImage", id="profileImage", hidden onchange="handleImagePreview('profileImage', 'previewImage')")
+                    
+                    .info-about-upload 
+                        p Click on the images to change them    
+               
             .form-group 
                 label(for='name') Name:
                 input(type='text', id='name', name='name', value=user.name, required)
@@ -56,3 +60,6 @@ block content
 
             .form-group
                 button(type='submit') Save Changes
+
+    
+    script(src="/javascripts/image-changes-though-upload.js") 

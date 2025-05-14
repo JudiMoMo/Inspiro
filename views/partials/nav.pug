@@ -12,6 +12,6 @@ nav.navbar
     .nav-right
         .profile
          if user.profileImage
-            a(href="/profile") 
+            a(href=`/profile/user/${user.id}`) 
                 img.nav-img(src=(user.profileImage || '/images/default-profile.png') alt='Profile Image')
             //- span #{user.name}

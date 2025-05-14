@@ -6,6 +6,12 @@ import Like from '../models/Like.js';
 
 export const getProfilePage = async (req, res) => {
   try {
+    //get the id form the url
+    const userId = req.params.id;
+    // Check if the user is logged in and if the profile belongs to them, if not you cannot see the profile options
+
+    const user = await User.findById(userId);
+    
     const posts = await Post.find({ author: req.session.user.id }).sort({ createdAt: -1 });
 
     // Find all posts liked by the current user
@@ -14,8 +20,11 @@ export const getProfilePage = async (req, res) => {
     // Extract only the post IDs of liked posts
     const likedPostIds = likedPosts.map(like => like.post.toString());
 
+    //get the user from the session
+    // const user = await User.findById(req.session.user.id);
 
-    return res.render('profile', { user: req.session.user, userPosts: posts, likedPostIds: likedPostIds });
+
+    return res.render('profile', { user: user, userPosts: posts, likedPostIds: likedPostIds, });
   } catch (err) {
     console.error('Error loading profile:', err);
     return res.status(500).send('Internal server error');
@@ -57,7 +66,7 @@ export const getEditProfilePage = async (req, res) => {
     if (!user) {
       return res.status(404).send('User not found');
     }
-    return res.render('edit-profile', { user: req.session.user});
+    return res.render('edit-profile', { user: user });
   } catch (err) {
     console.error('Error loading edit profile page:', err);
     return res.status(500).send('Internal server error');
@@ -84,6 +93,7 @@ export const postEditProfile = async (req, res) => {
     user.bio = req.body.bio || user.bio;
     user.gender = req.body.gender || user.gender;
     user.artistType = req.body.artistType || user.artistType;
+
 
     const username = req.body.username || user.username; // Important for folder path
 

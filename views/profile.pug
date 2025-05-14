@@ -7,24 +7,24 @@ block content
     include partials/options.pug
 
     include partials/nav.pug
-    p #{user.id}
     .profile-container.main-container
         section.card
             .profile-header
+                img.cover-img(src=user.coverImage, alt="")
                 img.profile-img(src=user.profileImage, alt="Profile Image")
                 
             .user-info
                 h1 #{user.username}
-                .user-actions 
-                    button.btn.tooltip
-                        i(class="fas fa-user-plus" type="button" onclick=`followUser('${user._id}')`) 
-                            span.tooltiptext Follow
-                    button.btn.tooltip
-                        i(class="fas fa-star")
-                            span.tooltiptext Add to Favorites
-                    button.btn.tooltip
-                        i(class="fas fa-share-alt")
-                            span.tooltiptext Share Profile
+            .user-actions
+                button.btn-rounded.tooltip(
+                    type="button", 
+                    id=`follow-btn-${user._id}`, 
+                    data-following="false", 
+                    onclick=`toggleFollow('${user._id}')`
+                    )
+                    span.strong Follow
+                button.btn-rounded.tooltip(type="button" onclick=`shareUser('${user._id}')`)
+                    span.strong Share
 
             .profile-actions 
                 a.btn.tooltip(href=`/profile/user/${user.id}/edit`)
@@ -39,11 +39,11 @@ block content
                             span.tooltiptext Logout
                     
         section.user-desription 
-            p.name #{user.name}
+            p.name Hello! my names is #{user.name} #{user.surname}
+            p.gender #{user.gender}
             p.bio #{user.bio}
-            p.location #{user.location}
-            p.website #{user.website}
 
+        
 
         section.user-details
             ul
@@ -64,7 +64,12 @@ block content
                 h2 Portfolio
             button.tab(data-tab="tagged")
                 h2 Tagged
+        hr
+        
 
         section#tab-content.tab-content
             include partials/posts.pug
+
+    
+    script(src="/javascripts/user_actions.js") 
             

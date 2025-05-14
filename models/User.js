@@ -5,12 +5,24 @@ const userSchema = new mongoose.Schema({
   surname: String,
   email: String,
   username: String,
+  gender: String,
   password: String,
   phone: String,
   bio: String,
   category: String,
   profileImage: String,
+  coverImage: String,
   createdAt: Date,
+  followers: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'User',
+    default: []
+  },
+  following: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'User',
+    default: []
+  }
 });
 
 const User = mongoose.model('User', userSchema, "Users");

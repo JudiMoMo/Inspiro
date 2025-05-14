@@ -10,7 +10,7 @@ import {
 
 const router = express.Router();
 
-router.get('/', getProfilePage);
+router.get('/user/:id', getProfilePage);
 router.get('/partials/:tab', getProfileTab);
 router.get('/user/:id/edit', getEditProfilePage);
 

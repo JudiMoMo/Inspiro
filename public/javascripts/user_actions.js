@@ -2,8 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Add event to the like, comment and share buttons
     const likeButtons = document.querySelectorAll('.like-btn');
-    const commentButtons = document.querySelectorAll('.comment-btn');
-    const shareButtons = document.querySelectorAll('.share-btn');
 
     likeButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -33,5 +31,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 .catch(err => console.error(err));
         });
     });
-
 });
+
+function toggleFollow(userId) {
+    const button = document.getElementById(`follow-btn-${userId}`);
+    const isFollowing = button.getAttribute('data-following') === 'true';
+
+    const url = isFollowing 
+        ? `/user/${userId}/unfollow` 
+        : `/user/${userId}/follow`;
+    const method = isFollowing ? 'DELETE' : 'POST';
+    fetch(url, {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (isFollowing) {
+            button.querySelector('span').innerText = 'Follow';
+            button.setAttribute('data-following', 'false');
+        } else {
+            button.querySelector('span').innerText = 'Unfollow';
+            button.setAttribute('data-following', 'true');
+        }
+        console.log(data.message);
+    })
+    .catch(error => console.error('Error:', error));
+}

@@ -1,3 +1,7 @@
+hr{
+    width: 80%;
+}
+
 .profile-container {
     display: flex;
     flex-direction: column;
@@ -9,24 +13,33 @@
 /* user card header */
 .card {
     position: relative;
-    border: 2px solid black;
     width: 100%;
 }
 
 
 /* user profile section */
 .profile-header {
+    position: relative;
     display: flex;
     align-content: center;
     justify-content: center;
 
 }
 
-.profile-header img {
+.profile-header img.profile-img {
     width: 300px;
     height: 300px;
     border-radius: 50%;
     margin-right: 20px;
+}
+.profile-header img.cover-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
 }
 
 /* Profile actions */
@@ -45,17 +58,32 @@
 /* User info*/
 .user-info {
     margin: 0.5em 0em;
+    position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
 }
 
+.user-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+}
+
+.user-desription {
+    width: 100%;
+    padding: 5px;
+}
 
 /* User details*/
 .user-details {
-    border: 1px solid black;
     width: 100%;
     padding: 5px;
+    border: 2px solid #ccc;
 }
 
 .user-details ul {
@@ -133,6 +161,18 @@
 .btn {
     background: none;
     border: none;
+}
+
+.btn-rounded {
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    font-size: 1em;
+}
+
+.btn-rounded:hover {
+    background-color: #0056b3;
 }
 
 .actions .btn:hover {
