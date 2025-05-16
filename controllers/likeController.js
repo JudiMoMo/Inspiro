@@ -9,6 +9,12 @@ export const likePost = async (req, res) => {
 
     if (!userId) return res.status(401).send('Not logged in');
 
+    // Check if the user already liked the post
+    const alreadyLiked = await Like.findOne({ post: postId, user: userId });
+    if (alreadyLiked) {
+      return res.status(400).json({ success: false, message: 'Already liked' });
+    }
+    
     const PostsLiked = await Post.findOne({_id: postId});
     const like = new Like({ post: postId, user: userId });
 
@@ -21,7 +27,7 @@ export const likePost = async (req, res) => {
 
     res.json({ success: true });
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -40,7 +46,7 @@ export const unlikePost = async (req, res) => {
 
     res.json({ success: true });
   } catch (err) {
-    res.status(500).json({ message: `SERVER ERRROR PostID=${postId} unliked and UserID${userId} deleted`  });
+    res.status(500).json({ message: `SERVER ERRROR`  });
   }
 };
 

@@ -16,13 +16,15 @@
     align-items: center;
 
     width: 95%;
+    height: auto;
     position: relative;
     border: 1px solid black;
 }
 
-.post-images{
+.post-images {
     height: 100%;
 }
+
 .post-images img {
     /* height: 300px; */
     height: 100%;
@@ -30,7 +32,7 @@
 
 }
 
-.post-content{
+.post-content {
     display: flex;
     flex-direction: column;
 
@@ -49,14 +51,15 @@
     width: 100%;
 }
 
-.post-user a{
+.post-user a {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: left;
 }
 
-.post-user img, .comment img {
+.post-user img,
+.comment img {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -138,7 +141,7 @@
 
 }
 
-.comment{
+.comment {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
 }
@@ -148,12 +151,27 @@
 
     .post-view-container {
         justify-content: center;
+        align-items: center;
     }
+
 
     .post-specific {
         display: grid;
         grid-template-columns: 2fr 1fr;
         align-items: start;
+    }
+
+
+    .post-images {
+        flex: 1;
+    }
+
+    .post-images img {
+        /* height: 300px; */
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+
     }
 
 

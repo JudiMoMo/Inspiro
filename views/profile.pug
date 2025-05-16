@@ -16,13 +16,14 @@ block content
             .user-info
                 h1 #{user.username}
             .user-actions
-                button.btn-rounded.tooltip(
+                button.follow-btn.btn-rounded.tooltip(
                     type="button", 
                     id=`follow-btn-${user._id}`, 
-                    data-following="false", 
-                    onclick=`toggleFollow('${user._id}')`
+                    data-following= isFollowing ? 'true' : 'false',  
+                    onclick=`toggleFollow('${user._id}', '${session.id}')`
+
                     )
-                    span.strong Follow
+                    span.strong #{isFollowing ? 'Unfollow' : 'Follow'}
                 button.btn-rounded.tooltip(type="button" onclick=`shareUser('${user._id}')`)
                     span.strong Share
 
@@ -52,10 +53,10 @@ block content
                     | #{userPosts.length} posts
                 li
                     i(class="fas fa-user") 
-                    | 0 followers
+                    | #{user.followers.length} followers
                 li
                     i(class="fas fa-user-friends") 
-                    | 0 following
+                    | #{user.following.length} following
                 
         section.tabs
             button.tab(data-tab="posts")
@@ -71,5 +72,5 @@ block content
             include partials/posts.pug
 
     
-    script(src="/javascripts/user_actions.js") 
-            
+   
+             

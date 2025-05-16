@@ -8,11 +8,11 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import dotenv from 'dotenv';
 
-import indexRouter from './routes/index.js';
+import indexRouter from './routes/indexRoute.js';
 import authRouter from './routes/authRoutes.js';
 import likeRoutes from './routes/likeRoutes.js';
 // import usersRouter from './routes/users.js';
-import homeRouter from './routes/home.js';
+import homeRouter from './routes/homeRoute.js';
 import profileRouter from './routes/profileRoutes.js';
 import postRouter from './routes/postRoutes.js';
 import commentRouter from './routes/commentRoutes.js';

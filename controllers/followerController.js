@@ -49,7 +49,7 @@ export const followUser = async (req, res) => {
 
 
         //redirect back to the page
-        res.json({ status: follow });
+        res.json({ status: "follow" });
 
     } catch (error) {
         console.error('Error following user:', error);
@@ -59,16 +59,21 @@ export const followUser = async (req, res) => {
 
 export const unfollowUser = async (req, res) => {
     try {
-        const { userId, unfollowUserId } = req.body;
+        const { userId, followUserId } = req.body;
+        console.log(userId, followUserId);
 
-        // Remove unfollowUserId from the following list of userId
-        await User.findByIdAndUpdate(userId, { $pull: { following: unfollowUserId } });
+        /// Remove unfollowUserId from current user's following list
+        await User.findByIdAndUpdate(userId, {
+            $pull: { following: followUserId }
+        });
 
-        // Remove userId from the followers list of unfollowUserId
-        await User.findByIdAndUpdate(unfollowUserId, { $pull: { followers: userId } });
+        // Remove userId from unfollowed user's followers list
+        await User.findByIdAndUpdate(followUserId, {
+            $pull: { followers: userId }
+        });
 
         //redirect back to the page
-        res.json({ status: unfollow });
+        res.json({ status: "unfollow" });
     } catch (error) {
         console.error('Error unfollowing user:', error);
         res.status(500).json({ error: 'Internal server error' });

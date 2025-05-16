@@ -3,33 +3,58 @@ import fs from 'fs';
 import User from '../models/User.js';
 import Post from '../models/Post.js';
 import Like from '../models/Like.js';
+import { fetchPostsWithExtras } from '../utils/fetchPostData.js';
 
 export const getProfilePage = async (req, res) => {
   try {
-    //get the id form the url
     const userId = req.params.id;
-    // Check if the user is logged in and if the profile belongs to them, if not you cannot see the profile options
+    const currentUserId = req.session.user.id;
 
     const user = await User.findById(userId);
-    
-    const posts = await Post.find({ author: req.session.user.id }).sort({ createdAt: -1 });
+    const currentUser = await User.findById(currentUserId);
+    const isFollowing = currentUser.following.includes(userId);
 
-    // Find all posts liked by the current user
-    const likedPosts = await Like.find({ user: req.session.user.id }).select('post');  // Gets the post IDs
+    const { posts, likedPostIds, comments } = await fetchPostsWithExtras(currentUserId, { author: userId });
 
-    // Extract only the post IDs of liked posts
-    const likedPostIds = likedPosts.map(like => like.post.toString());
-
-    //get the user from the session
-    // const user = await User.findById(req.session.user.id);
-
-
-    return res.render('profile', { user: user, userPosts: posts, likedPostIds: likedPostIds, });
+    res.render('profile', {
+      user,
+      session: req.session.user,
+      userPosts: posts,
+      likedPostIds,
+      comments,
+      isFollowing
+    });
   } catch (err) {
     console.error('Error loading profile:', err);
     return res.status(500).send('Internal server error');
   }
 };
+// export const getProfilePage = async (req, res) => {
+//   try {
+//     //get the id form the url
+//     const userId = req.params.id;
+//     // Check if the user is logged in and if the profile belongs to them, if not you cannot see the profile options
+
+//     const user = await User.findById(userId);
+    
+//     const posts = await Post.find({ author: req.session.user.id }).sort({ createdAt: -1 });
+
+//     // Find all posts liked by the current user
+//     const likedPosts = await Like.find({ user: req.session.user.id }).select('post');  // Gets the post IDs
+
+//     // Extract only the post IDs of liked posts
+//     const likedPostIds = likedPosts.map(like => like.post.toString());
+
+//     //We check if the current user lloged in follows the profile user
+//     const currentUser = await User.findById(req.session.user.id);
+//     const isFollowing = currentUser.following.includes(userId);
+
+//     return res.render('profile', { user: user, userPosts: posts, likedPostIds: likedPostIds, session: req.session.user, isFollowing: isFollowing });
+//   } catch (err) {
+//     console.error('Error loading profile:', err);
+//     return res.status(500).send('Internal server error');
+//   }
+// };
 
 export const getProfileTab = async (req, res) => {
   const tab = req.params.tab;

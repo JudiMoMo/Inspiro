@@ -63,7 +63,7 @@ block content
                 each comment in postComments
                     .comment
                         .post-user.comment-author
-                            a(href=comment.user.id)
+                            a(href=`/profile/user/${comment.user.id}`)
                                 img(src=comment.user.profileImage, alt="profile image")
                                 h3 #{comment.user.username}
                                 
@@ -72,6 +72,6 @@ block content
                             small Posted on #{comment.createdAt.toDateString()}
                         p  #{comment.content}
 
-    a.btn(href='/profile') ← Back to Profile
+    a.btn(href=`/profile/user/${user.id}`) ← Back to Profile
 
     script(src="/javascripts/user_actions.js") 

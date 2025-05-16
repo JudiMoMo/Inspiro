@@ -15,13 +15,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Toggle like state visually
+                        // ✅ THIS is where you put the toggle logic
                         button.classList.toggle('liked');
-                        // Optional: update icon (assuming a <i> inside the button)
                         const icon = button.querySelector('i');
                         if (icon) {
-                            icon.classList.toggle('fas'); // Toggle the 'fas' class separately
-                            icon.classList.toggle('far'); // Ensure 'far' is also toggled (outline)
+                            if (button.classList.contains('liked')) {
+                                icon.classList.remove('far');
+                                icon.classList.add('fas');
+                            } else {
+                                icon.classList.remove('fas');
+                                icon.classList.add('far');
+                            }
                         }
 
                     } else {
@@ -30,15 +34,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .catch(err => console.error(err));
         });
+
     });
 });
 
-function toggleFollow(userId) {
+function toggleFollow(userId, followUserId) {
     const button = document.getElementById(`follow-btn-${userId}`);
     const isFollowing = button.getAttribute('data-following') === 'true';
 
-    const url = isFollowing 
-        ? `/user/${userId}/unfollow` 
+    const url = isFollowing
+        ? `/user/${userId}/unfollow`
         : `/user/${userId}/follow`;
     const method = isFollowing ? 'DELETE' : 'POST';
     fetch(url, {
@@ -46,18 +51,18 @@ function toggleFollow(userId) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ userId })
+        body: JSON.stringify({ userId, followUserId })
     })
-    .then(response => response.json())
-    .then(data => {
-        if (isFollowing) {
-            button.querySelector('span').innerText = 'Follow';
-            button.setAttribute('data-following', 'false');
-        } else {
-            button.querySelector('span').innerText = 'Unfollow';
-            button.setAttribute('data-following', 'true');
-        }
-        console.log(data.message);
-    })
-    .catch(error => console.error('Error:', error));
+        .then(response => response.json())
+        .then(data => {
+            if (isFollowing) {
+                button.querySelector('span').innerText = 'Follow';
+                button.setAttribute('data-following', 'false');
+            } else {
+                button.querySelector('span').innerText = 'Unfollow';
+                button.setAttribute('data-following', 'true');
+            }
+            console.log(data.message);
+        })
+        .catch(error => console.error('Error:', error));
 }

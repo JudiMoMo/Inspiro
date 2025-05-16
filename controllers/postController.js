@@ -1,6 +1,8 @@
 import Post from '../models/Post.js';
 import Like from '../models/Like.js';
-import Comment from '../models/Comment.js';
+import Comment from '../models/Comment.js'
+import User from '../models/User.js';
+import mongoose from 'mongoose';
 
 
 //Render the create post form
@@ -30,7 +32,7 @@ export const createPost = async (req, res) => {
     });
 
     await newPost.save();
-    return res.render('home', { user: req.session.user });
+    return res.render('profile', { user: req.session.user });
   } catch (err) {
     console.error('Post creation error:', err);
     res.status(500).send('Error creating post: ' + err.message);
@@ -124,19 +126,24 @@ export const viewPost = async (req, res) => {
       return res.status(404).send('Post not found');
     }
 
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
     const postLikes = await Like.find({ post: postId }).populate('user', 'username');
     const postComments = await Comment.find({ post: postId })
       .populate('user', 'username profileImage')
       .sort({ createdAt: -1 });
-    
+
     // Extract only the post IDs of liked posts
     const likedPostIds = postLikes.map(like => like.post.toString());
 
     return res.render('specificPost', {
       layout: 'main',
       post,
-      user: req.session.user,
-      postLikes, 
+      user: user,
+      postLikes,
       postComments,
       likedPostIds
     });
@@ -145,3 +152,5 @@ export const viewPost = async (req, res) => {
     return res.status(500).send('Internal server error');
   }
 };
+
+

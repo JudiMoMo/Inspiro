@@ -71,6 +71,12 @@ export const postLogin = async (req, res) => {
       isLoggedIn: true
     };
 
+    req.session.save(err => {
+      if (err) {
+        console.error('Session save error:', err);
+        return res.status(500).send('Could not save session');
+      }
+    });
     return res.redirect('/home');
   } catch (err) {
     return res.status(500).send('Server error');
