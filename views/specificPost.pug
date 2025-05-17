@@ -15,7 +15,7 @@ block content
         .post-content
 
             .post-user.post-author
-                a(href=post.author.profileImage)
+                a(href=`/profile/user/${post.author.id}`)
                     img(src=user.profileImage, alt="profile image")
                     h3 #{post.author.username}
             
@@ -72,6 +72,6 @@ block content
                             small Posted on #{comment.createdAt.toDateString()}
                         p  #{comment.content}
 
-    a.btn(href=`/profile/user/${user.id}`) ← Back to Profile
+    a.btn(href=`/profile/user/${sessionUser.id}`) ← Back to Profile
 
     script(src="/javascripts/user_actions.js") 

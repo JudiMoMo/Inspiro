@@ -17,7 +17,14 @@ block content
                             img#previewCover(src=user.coverImage, alt="Upload Image")
                         else
                             img#previewCoverImage(src="/images/cover.jpg", alt="Upload Image")
-                    input(type='file', id='coverImage', name='coverImage' hidden onchange="handleImagePreview('coverImage', 'previewCoverImage')")
+                    input(
+                        type='file',
+                        id='coverImage',
+                        name='coverImage',
+                        hidden,
+                        onchange="document.getElementById('previewCover')?.setAttribute('src', window.URL.createObjectURL(this.files[0]))"
+                        )
+
                 
                     .form-group.profile-container
                         label(for="profileImage" class="profile-upload")
@@ -25,10 +32,17 @@ block content
                                 img#previewImage(src=user.profileImage, alt="Upload Image")
                             else
                                 img#previewImage(src="/images/profile.png", alt="Upload Image")
-                        input(type="file", name="profileImage", id="profileImage", hidden onchange="handleImagePreview('profileImage', 'previewImage')")
-                    
-                    .info-about-upload 
-                        p Click on the images to change them    
+                        input(
+                            type='file',
+                            id='profileImage',
+                            name='profileImage',
+                            hidden,
+                            onchange="document.getElementById('previewImage')?.setAttribute('src', window.URL.createObjectURL(this.files[0]))"
+                            )
+
+
+            .info-about-upload 
+                p Click on the images to change them                        
                
             .form-group 
                 label(for='name') Name:

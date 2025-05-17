@@ -49,13 +49,24 @@
 
 /* Search bar */
 .search {
+  display: flex;
+  flex-direction: row;
   flex-grow: 1;
   min-width: 150px;
   max-width: 80%;
   padding: 0.4rem 1rem;
   border-radius: 20px;
   border: 1px solid #ccc;
+  background-color: white;
   width: 80%;
+}
+
+.search input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  background-color: transparent;
 }
 
 /* Profile section */
@@ -82,6 +93,8 @@
   margin-top: 0.2rem;
 }
 
+
+
 /* Tablet view */
 @media (min-width: 768px) {
   .navbar {
@@ -91,6 +104,17 @@
     /* padding: 0.5rem 2rem; */
   }
 
+  .nav-middle {
+    flex: 1;
+    justify-content: start;
+    margin-left: 20px;
+  }
+
+  form{
+    width: 100%;
+    max-width: 800px;
+  }
+
   .nav-left a {
     display: block;
   }
@@ -98,6 +122,7 @@
   .navbar{
     padding-left: 100px;
   }
+
 
 }
 

@@ -34,17 +34,18 @@ export const getFollowing = async (req, res) => {
 
 export const followUser = async (req, res) => {
     try {
-        const { userId, followUserId } = req.body;
+        const { userId, userLoggedInId } = req.body;
 
-        // Add followUserId to the following list of userId
+        //When followinga an user, we add the userId to our session user's following list
         await User.updateOne(
-            { _id: userId },
-            { $addToSet: { following: followUserId } }
+            { _id: userLoggedInId },
+            { $addToSet: { following: userId } }
         );
 
+        //When following a user, we add the userLoggedInId to the followed user's followers list
         await User.updateOne(
-            { _id: followUserId },
-            { $addToSet: { followers: userId } }
+            { _id: userId },
+            { $addToSet: { followers: userLoggedInId } }
         );
 
 
@@ -59,17 +60,16 @@ export const followUser = async (req, res) => {
 
 export const unfollowUser = async (req, res) => {
     try {
-        const { userId, followUserId } = req.body;
-        console.log(userId, followUserId);
+        const { userId, userLoggedInId } = req.body;
 
-        /// Remove unfollowUserId from current user's following list
-        await User.findByIdAndUpdate(userId, {
-            $pull: { following: followUserId }
+        //When unfollowing a user, we remove the userId from our session user's following list
+        await User.findByIdAndUpdate(userLoggedInId, {
+            $pull: { following: userId }
         });
 
-        // Remove userId from unfollowed user's followers list
-        await User.findByIdAndUpdate(followUserId, {
-            $pull: { followers: userId }
+        //When unfollowing a user, we remove the userLoggedInId from the followed user's followers list
+        await User.findByIdAndUpdate(userId, {
+            $pull: { followers: userLoggedInId }
         });
 
         //redirect back to the page

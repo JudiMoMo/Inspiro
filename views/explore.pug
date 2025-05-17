@@ -1,0 +1,31 @@
+
+extends home_layout 
+block styles
+  link(rel="stylesheet", href="/stylesheets/explore.css")
+
+block content
+  include partials/options.pug
+  include partials/nav.pug
+
+  .container.main-container 
+    
+    .row.profiles 
+        each user in users
+            .profile-card
+                a(href=`/profile/user/${user._id}`)
+                    img(src=user.profileImage, alt="Profile Image")
+                    h3 #{user.username}
+   
+    
+    .posts 
+        each post in posts 
+            .post
+                .post-user.post-author
+                    a(href=`/profile/user/${post.author._id}`)
+                        //- img(src=post.author.profileImage, alt="profile image")
+                        //- h3 #{post.author.username}
+                .post-images(onclick=`window.location.href = '/posts/user/${post.author._id}/post/${post._id}'`) 
+                    if post.images && post.images.length > 0
+                        each image in post.images
+                            img(src=image, alt="Post Image")
+                    

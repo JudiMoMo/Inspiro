@@ -29,32 +29,7 @@ export const getProfilePage = async (req, res) => {
     return res.status(500).send('Internal server error');
   }
 };
-// export const getProfilePage = async (req, res) => {
-//   try {
-//     //get the id form the url
-//     const userId = req.params.id;
-//     // Check if the user is logged in and if the profile belongs to them, if not you cannot see the profile options
 
-//     const user = await User.findById(userId);
-    
-//     const posts = await Post.find({ author: req.session.user.id }).sort({ createdAt: -1 });
-
-//     // Find all posts liked by the current user
-//     const likedPosts = await Like.find({ user: req.session.user.id }).select('post');  // Gets the post IDs
-
-//     // Extract only the post IDs of liked posts
-//     const likedPostIds = likedPosts.map(like => like.post.toString());
-
-//     //We check if the current user lloged in follows the profile user
-//     const currentUser = await User.findById(req.session.user.id);
-//     const isFollowing = currentUser.following.includes(userId);
-
-//     return res.render('profile', { user: user, userPosts: posts, likedPostIds: likedPostIds, session: req.session.user, isFollowing: isFollowing });
-//   } catch (err) {
-//     console.error('Error loading profile:', err);
-//     return res.status(500).send('Internal server error');
-//   }
-// };
 
 export const getProfileTab = async (req, res) => {
   const tab = req.params.tab;
@@ -164,18 +139,8 @@ export const postEditProfile = async (req, res) => {
       isLoggedIn: true
     };
 
-    // Get user posts and liked posts
-    const posts = await Post.find({ author: user._id }).sort({ createdAt: -1 });
-    const likedPosts = await Like.find({ user: user._id }).select('post');
-    const likedPostIds = likedPosts.map(like => like.post.toString());
-
     // Render updated profile
-    return res.render('profile', {
-      user: req.session.user,
-      userPosts: posts,
-      likedPostIds: likedPostIds
-    });
-
+    return res.redirect(`/profile/user/${req.session.user.id}`);
   } catch (err) {
     console.error('Error updating profile:', err);
     return res.status(500).send('Internal server error');

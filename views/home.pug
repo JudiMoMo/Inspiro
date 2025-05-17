@@ -1,6 +1,7 @@
 extends home_layout
 
 block styles
+  link(rel="stylesheet", href="/stylesheets/home.css")
 
 block content
   include partials/options.pug
@@ -8,36 +9,43 @@ block content
 
   .container.main-container
     section.popular-posts 
-      h2 Popular Posts
+      
       .posts-container
-  .posts
-    each post in posts
-      .post
-        .post-images(onclick=`window.location.href = '/posts/user/${post.author._id}/post/${post._id}'`) 
-          if post.images && post.images.length > 0
-            each image in post.images
-              img(src=image, alt="Post Image")
-        .post-content
-          h3(onclick=`window.location.href = '/posts/user/${post.author._id}/post/${post._id}'`) #{post.title}
-          p #{post.content}
-        .actions
-          .principal-actions
-            button.btn.like-btn.tooltip(
-              data-post-id=post._id, 
-              class=post.isLiked ? 'liked text-red' : ''
-            )
-              i(class=post.isLiked ? 'fas fa-heart' : 'far fa-heart') 
-              span.tooltiptext Like this post
+        .posts
+          each post in posts
+            .post
+              .post-user.post-author
+                a(href=`/profile/user/${post.author._id}`)
+                  img(src=post.author.profileImage, alt="profile image")
+                  h3 #{post.author.username}
+              .post-images(onclick=`window.location.href = '/posts/user/${post.author._id}/post/${post._id}'`) 
+                if post.images && post.images.length > 0
+                  each image in post.images
+                    img(src=image, alt="Post Image")
+              .post-content
+                h3(onclick=`window.location.href = '/posts/user/${post.author._id}/post/${post._id}'`) #{post.title}
+                p #{post.content}
+              .actions
+                .principal-actions
+                  button.btn.like-btn.tooltip(
+                    data-post-id=post._id, 
+                    class=post.isLiked ? 'liked text-red' : ''
+                  )
+                    i(class=post.isLiked ? 'fas fa-heart' : 'far fa-heart') 
+                    span.tooltiptext Like this post
 
-            button.btn.comment-btn.tooltip
-              i(class="far fa-comment" onclick=`window.location.href = '/posts/user/${post.author._id}/post/${post._id}'`) 
-              span.tooltiptext Comment on this post
-            button.btn.share-btn.tooltip
-              i(class="fas fa-share") 
-              span.tooltiptext Share this post
-          .secondary-actions
-            button.btn.save.tooltip
-              i(class="far fa-bookmark")
-              span.tooltiptext Save this post
+                  button.btn.comment-btn.tooltip
+                    i(class="far fa-comment" onclick=`window.location.href = '/posts/user/${post.author._id}/post/${post._id}'`) 
+                    span.tooltiptext Comment on this post
+                  button.btn.share-btn.tooltip
+                    i(class="fas fa-share") 
+                    span.tooltiptext Share this post
+                .secondary-actions
+                  button.btn.save.tooltip
+                    i(class="far fa-bookmark")
+                    span.tooltiptext Save this post
+
+
+  script(src="/javascripts/user_actions.js") 
 
 

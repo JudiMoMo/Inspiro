@@ -32,7 +32,8 @@ export const createPost = async (req, res) => {
     });
 
     await newPost.save();
-    return res.render('profile', { user: req.session.user });
+    // Render updated profile
+    return res.redirect(`/profile/user/${req.session.user.id}`);
   } catch (err) {
     console.error('Post creation error:', err);
     res.status(500).send('Error creating post: ' + err.message);

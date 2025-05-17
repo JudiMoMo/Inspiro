@@ -2,16 +2,19 @@ nav.navbar
     .nav-left
         a(href="/home") 
             span.logo INSPIRO
-        a(href='/explore') Explore
-        a(href='/tutorials') Tutorials
+        a(href='/search/') Explore
+        a(href='/search/') Tutorials
 
     .nav-middle
-        input.search(type='text', placeholder='Search...')
+        form.search(action="/search/" method="get")
+            input(type="text" name="query" placeholder="Search..." required)
+            button.btn.tooltip(type="submit")
+                i(class="fas fa-search") 
+                span.tooltiptext Search
 
 
     .nav-right
         .profile
-         if user.profileImage
-            a(href=`/profile/user/${user.id}`) 
-                img.nav-img(src=(user.profileImage || '/images/default-profile.png') alt='Profile Image')
-            //- span #{user.name}
+         if sessionUser.profileImage
+            a(href=`/profile/user/${sessionUser.id}`) 
+                img.nav-img(src=(sessionUser.profileImage) alt='Profile Image')

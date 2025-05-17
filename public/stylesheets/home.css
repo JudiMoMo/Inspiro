@@ -1,0 +1,119 @@
+/* Posts CONTAINER */
+
+.posts-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 20px;
+}
+
+h2{
+    margin-bottom: 5px;
+}
+
+
+/* POSTS */
+.posts {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 10px;
+}
+
+.post {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+}
+
+.post-user {
+    width: 100%;
+}
+
+.post-images img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.post-user a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+}
+
+.post-user img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* posts action buttons */
+.actions {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    gap: 15px;
+    padding: 10px;
+}
+
+
+
+
+
+.principal-actions,
+.secondary-actions {
+    width: 50%;
+}
+
+.principal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: start;
+}
+
+.secondary-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: end;
+}
+
+/* Tablet view */
+@media (min-width: 768px) {
+    .user-details ul {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .tabs {
+        flex-direction: row;
+    }
+
+    .post-images img{
+
+        height: 500px;
+    }
+
+
+    .posts-container {
+        padding: 10px 100px;
+    }
+
+}
+
+/* Desktop view */
+@media (min-width: 992px) {
+
+
+    .nav-right {
+        justify-content: flex-end;
+    }
+
+    .posts-container {
+        padding: 10px 300px;
+    }
+}

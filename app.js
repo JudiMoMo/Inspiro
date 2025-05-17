@@ -17,6 +17,7 @@ import profileRouter from './routes/profileRoutes.js';
 import postRouter from './routes/postRoutes.js';
 import commentRouter from './routes/commentRoutes.js';
 import followRoutes from './routes/followerRoutes.js';
+import searchRouter from './routes/searchRoute.js';
 
 
 dotenv.config(); // Load environment variables
@@ -55,6 +56,12 @@ app.use(session({
   }
 }));
 
+// --- Make session user available to views ---
+app.use((req, res, next) => {
+  res.locals.sessionUser = req.session.user;
+  next();
+});
+
 // Routes
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
@@ -65,6 +72,7 @@ app.use('/posts', postRouter);
 app.use('/posts', likeRoutes);
 app.use('/posts', commentRouter);
 app.use('/user', followRoutes);
+app.use('/search', searchRouter); // search bar
 
 
 // 404 error handler

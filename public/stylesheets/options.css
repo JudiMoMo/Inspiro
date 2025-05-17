@@ -1,87 +1,118 @@
 /* ✅ Mobile first: bottom nav bar */
 .navOptionbar {
-    position: fixed;
-    bottom: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #f8f9fa;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  border: 1px solid #ccc;
+
+}
+
+.principal-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  width: 100%;
+}
+
+.secondary-options {
+  display: none;
+}
+
+.navOption {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.navOption a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navOption a:hover {
+  background-color: #eaeaea;
+  color: #000;
+}
+
+.navOption a span.logo {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #222;
+}
+
+.navOption img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+/* ✅ Tablet/Desktop: switch to vertical left-side nav */
+@media (min-width: 768px) {
+  .navOptionbar {
+    top: 0;
+    bottom: unset;
     left: 0;
-    width: 100%;
-    height: 60px;
-    background-color: #f8f9fa;
-    border-top: 1px solid #ccc;
-    display: flex;
-    flex-direction: row;
-    /* justify-content: space-around; */
+    height: 100vh;
+    width: 80px;
+    flex-direction: column;
     align-items: center;
-    z-index: 1000;
+    justify-content: start;
+    padding: 0.5rem;
+    border-top: none;
   }
-  
+
   .navOption {
     display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-around;
-    align-items: center;
-  }
-  
-  .navOption a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    font-size: 0.9rem;
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    border-radius: 6px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .navOption a:hover {
-    background-color: #eaeaea;
-    color: #000;
-  }
-  
-  .navOption a span.logo {
-    font-weight: bold;
-    font-size: 1rem;
-    color: #222;
-  }
-  
-  .navOption img {
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
-  }
-  
-  /* ✅ Tablet/Desktop: switch to vertical left-side nav */
-  @media (min-width: 768px) {
-    .navOptionbar {
-      top: 0;
-      bottom: unset;
-      left: 0;
-      height: 100vh;
-      width: 80px;
-      flex-direction: column;
-      align-items: center;
-      justify-content: start;
-      padding: 0.5rem;
-      border-right: 1px solid #ccc;
-      border-top: none;
-    }
-  
-    .navOption {
-      flex-direction: column;
-      height: 30%;
-      align-items: center;
-      justify-content: space-between;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    height: 100%;
 
-      border: 1px solid #ccc;
-    }
-  
-    .navOption a {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1rem;
-    }
+
   }
-  
+
+  .principal-options {
+    flex-direction: column;
+    height: 50%;
+    align-items: start;
+    justify-content: space-between;
+  }
+
+  .secondary-options {
+    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .navOption a {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+  }
+}

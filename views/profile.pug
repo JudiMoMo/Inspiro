@@ -16,14 +16,17 @@ block content
             .user-info
                 h1 #{user.username}
             .user-actions
-                button.follow-btn.btn-rounded.tooltip(
-                    type="button", 
-                    id=`follow-btn-${user._id}`, 
-                    data-following= isFollowing ? 'true' : 'false',  
-                    onclick=`toggleFollow('${user._id}', '${session.id}')`
-
-                    )
-                    span.strong #{isFollowing ? 'Unfollow' : 'Follow'}
+                if user._id !== session.id
+                    if isFollowing
+                        button.follow-btn.btn-rounded.tooltip(
+                            type="button", 
+                            id=`follow-btn-${user._id}`, 
+                            data-following= isFollowing ? 'true' : 'false',  
+                            onclick=`toggleFollow('${user._id}', '${session.id}')`
+                        )
+                            span.strong #{isFollowing ? 'Unfollow' : 'Follow'}
+                    else
+               
                 button.btn-rounded.tooltip(type="button" onclick=`shareUser('${user._id}')`)
                     span.strong Share
 
@@ -40,7 +43,7 @@ block content
                             span.tooltiptext Logout
                     
         section.user-desription 
-            p.name Hello! my names is #{user.name} #{user.surname}
+            p.name Hello! My name is #{user.name} #{user.surname}
             p.gender #{user.gender}
             p.bio #{user.bio}
 

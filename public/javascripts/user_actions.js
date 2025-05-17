@@ -35,10 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 .catch(err => console.error(err));
         });
 
+        //We will toggle the follow button when loading the page if the user is already following the user
+        
+
     });
 });
 
-function toggleFollow(userId, followUserId) {
+function toggleFollow(userId, userLoggedInId) {
     const button = document.getElementById(`follow-btn-${userId}`);
     const isFollowing = button.getAttribute('data-following') === 'true';
 
@@ -51,7 +54,7 @@ function toggleFollow(userId, followUserId) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ userId, followUserId })
+        body: JSON.stringify({ userId, userLoggedInId })
     })
         .then(response => response.json())
         .then(data => {

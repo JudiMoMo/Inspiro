@@ -88,13 +88,13 @@ form {
 }
 
 .info-about-upload {
-    z-index: 99;
-    height: 100%;
+    /* z-index: 99; */
+
     position: relative;
     display: flex;
     justify-content: center;
     align-items:flex-end;
-    top: 25px;
+    top: -25px;
     font-size: 1px;
     color: black;
     font-weight: 600;
