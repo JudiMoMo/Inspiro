@@ -9,24 +9,16 @@
 }
 
 :root {
-    --colorname1: #ff0000;
-    /* Red color */
-    --colorname2: #000000;
-    /* Black color */
-    --colorname3: #ffffff;
-    /* White color */
-    --colorname4: #333333;
-    /* Dark gray color for text */
 
-
-    --primary-color: #ff0000;
-    /* Red color */
-    --secondary-color: #000000;
-    /* Black color */
-    --background-color: #ffffff;
-    /* White color */
-    --text-color: #333333;
-    /* Dark gray color for text */
+    --dark-blue: #19395B;
+    /* Primary color */
+    --light-blue: #3DBACE;
+    /* Light blue color */
+    --light-beige: #F4F4F4;
+    /* Light beige color */
+    --light-gray: #97A4AC;
+    /* Light gray color */
+    --black: #0C0512; 
 
 
 
@@ -75,6 +67,11 @@ li,
 button {
     font-family: 'Fira Code', monospace;
     /* color: red; */
+}
+
+body{
+    background-color: var(--light-beige);
+    color: var(--black);
 }
 
 
@@ -161,14 +158,16 @@ hr{
 
 .btn-rounded {
     border-radius: 5px;
-    padding: 5px 10px;
-    background-color: #007bff;
+    padding: 10px 15px;
+    background-color: var(--light-blue);
+    border: none;
     color: white;
     font-size: 1em;
 }
 
 .btn-rounded:hover {
-    background-color: #0056b3;
+    background-color: var(--dark-blue);
+    color:white;
 }
 
 .actions .btn:hover {

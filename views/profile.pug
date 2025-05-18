@@ -14,10 +14,9 @@ block content
                 img.profile-img(src=user.profileImage, alt="Profile Image")
                 
             .user-info
-                h1 #{user.username}
-            .user-actions
-                if user._id !== session.id
-                    if isFollowing
+                h1 @#{user.username}
+                .user-actions
+                    if user._id != sessionUser.id
                         button.follow-btn.btn-rounded.tooltip(
                             type="button", 
                             id=`follow-btn-${user._id}`, 
@@ -25,26 +24,33 @@ block content
                             onclick=`toggleFollow('${user._id}', '${session.id}')`
                         )
                             span.strong #{isFollowing ? 'Unfollow' : 'Follow'}
-                    else
-               
-                button.btn-rounded.tooltip(type="button" onclick=`shareUser('${user._id}')`)
-                    span.strong Share
+                        
+                
+                    button.btn-rounded.tooltip(type="button" onclick=`shareUser('${user._id}')`)
+                        span.strong Share
 
-            .profile-actions 
-                a.btn.tooltip(href=`/profile/user/${user.id}/edit`)
-                    i(class="fas fa-user-edit") 
-                    span.tooltiptext Edit Profile
-                a.btn.tooltip
-                    i(class="fas fa-cog")
-                        span.tooltiptext Settings
-                form(action="/auth/logout", method="get")
-                    button.btn.tooltip(type="submit")
-                        i(class="fas fa-sign-out-alt")
-                            span.tooltiptext Logout
+            //- .profile-actions 
+            //-     a.btn.tooltip(href=`/profile/user/${user.id}/edit`)
+            //-         i(class="fas fa-user-edit") 
+            //-         span.tooltiptext Edit Profile
+            //-     a.btn.tooltip
+            //-         i(class="fas fa-cog")
+            //-             span.tooltiptext Settings
+            //-     form(action="/auth/logout", method="get")
+            //-         button.btn.tooltip(type="submit")
+            //-             i(class="fas fa-sign-out-alt")
+            //-                 span.tooltiptext Logout
                     
         section.user-desription 
             p.name Hello! My name is #{user.name} #{user.surname}
-            p.gender #{user.gender}
+            
+            if user.gender === 'male'
+                p.gender he/him
+            else if user.gender === 'female'
+                p.gender she/her
+            else
+                p.gender they/them
+                
             p.bio #{user.bio}
 
         
@@ -61,14 +67,6 @@ block content
                     i(class="fas fa-user-friends") 
                     | #{user.following.length} following
                 
-        section.tabs
-            button.tab(data-tab="posts")
-                h2 Posts
-            button.tab(data-tab="portfolio")
-                h2 Portfolio
-            button.tab(data-tab="tagged")
-                h2 Tagged
-        hr
         
 
         section#tab-content.tab-content

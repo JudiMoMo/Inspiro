@@ -16,8 +16,16 @@ block content
 
         .form-group
           label(for="profileImage" class="profile-upload")
-            img#previewImage(src="/images/profile.png", alt="Upload Image")
-          input(type="file", name="profileImage", id="profileImage", hidden required onchange="handleImagePreview('profileImage', 'previewImage')")
+            img#previewProfileImage(src="/images/profile.png", alt="Upload Image")
+          input(
+            type='file',
+            id='profileImage',
+            name='profileImage',
+            hidden,
+            onchange="document.getElementById('previewCover')?.setAttribute('src', window.URL.createObjectURL(this.files[0]))"
+          )
+
+
       
         .name-surname
           .form-group
@@ -59,5 +67,6 @@ block content
         .form-group
           button(type="submit") Register
 
+  
   <script src="/javascripts/image-changes-though-upload.js"></script>
         

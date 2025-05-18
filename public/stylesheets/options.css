@@ -13,7 +13,10 @@
   align-items: center;
   z-index: 1000;
 
-  border: 1px solid #ccc;
+  border-right: 2px solid #ccc;
+
+
+
 
 }
 
@@ -40,7 +43,7 @@
 
 .navOption a {
   text-decoration: none;
-  color: #333;
+  color: var(--black);
   font-weight: 500;
   font-size: 0.9rem;
   padding: 0.5rem;
@@ -110,6 +113,7 @@
 
   .navOption a {
     width: 100%;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;

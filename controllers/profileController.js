@@ -99,6 +99,13 @@ export const postEditProfile = async (req, res) => {
 
     // === Handle Profile Image ===
     if (req.files && req.files.profileImage && req.files.profileImage[0]) {
+      // Delete old profile image if it exists
+      if (user.profileImage) {
+        const oldProfilePath = path.join(process.cwd(), 'public', user.profileImage);
+        fs.unlink(oldProfilePath, err => {
+          if (err) console.warn('Failed to delete old profile image:', oldProfilePath, err.message);
+        });
+      }
       const file = req.files.profileImage[0];
       const ext = path.extname(file.originalname);
       const fileName = 'profile-' + Date.now() + '-' + Math.round(Math.random() * 1e9) + ext;
@@ -113,6 +120,12 @@ export const postEditProfile = async (req, res) => {
 
     // === Handle Cover Image ===
     if (req.files && req.files.coverImage && req.files.coverImage[0]) {
+      if (user.coverImage) {
+        const oldCoverPath = path.join(process.cwd(), 'public', user.coverImage);
+        fs.unlink(oldCoverPath, err => {
+          if (err) console.warn('Failed to delete old cover image:', oldCoverPath, err.message);
+        });
+      }
       const file = req.files.coverImage[0];
       const ext = path.extname(file.originalname);
       const fileName = 'cover-' + Date.now() + '-' + Math.round(Math.random() * 1e9) + ext;

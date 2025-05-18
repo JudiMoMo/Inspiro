@@ -6,8 +6,9 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 2px solid #ccc;
+  
+
   padding: 0.5rem 1.5em;
 }
 
@@ -24,14 +25,14 @@
 .logo {
   font-weight: bold;
   font-size: 1.2rem;
-  color: #333;
+  color: var(--light-blue);
 }
 
 /* Navigation links */
 .navbar a {
   text-decoration: none;
-  color: #333;
-  font-weight: 500;
+  color: var(--black);
+  font-weight: bold;
 }
 
 .nav-left a {
@@ -69,6 +70,12 @@
   background-color: transparent;
 }
 
+.search-icon {
+  color: var(--light-blue);
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
+}
+
 /* Profile section */
 .profile {
   display: flex;
@@ -82,8 +89,8 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  border: 2px solid var(--light-blue);
   object-fit: cover;
-  border: 1px solid #aaa;
 }
 
 .profile span {
@@ -110,7 +117,7 @@
     margin-left: 20px;
   }
 
-  form{
+  form.search{
     width: 100%;
     max-width: 800px;
   }

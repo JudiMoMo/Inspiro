@@ -21,10 +21,15 @@
                         i(class="fas fa-share") 
                         span.tooltiptext Share this post
                 .secondary-actions
+                    if post.author._id == sessionUser.id
+                        form(method="post", action=`/posts/delete/${post._id}`)
+                            button.btn.delete-btn.tooltip(type="submit")
+                                i(class="fas fa-trash-alt")
+                                span.tooltiptext Delete this post
+                    
                     button.btn.save.tooltip
                         i(class="far fa-bookmark")
                         span.tooltiptext Save this post
 
 
-<script src="/javascripts/script_tab_selector.js"></script>
 <script src="/javascripts/user_actions.js"></script>

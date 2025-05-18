@@ -2,8 +2,8 @@ import Post from '../models/Post.js';
 import Like from '../models/Like.js';
 import Comment from '../models/Comment.js'
 import User from '../models/User.js';
-import mongoose from 'mongoose';
-
+import path from 'path';
+import fs from 'fs';
 
 //Render the create post form
 export const renderCreatePostForm = (req, res) => {
@@ -83,13 +83,35 @@ export const updatePost = async (req, res) => {
 // This function deletes the post by ID
 export const deletePost = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
-    if (!post) return res.status(404).send('Post not found');
+    const postId = req.params.id;
+    const userId = req.session.user.id;
 
-    await post.remove();
-    res.redirect('/home');
+    const post = await Post.findOne({ _id: postId, author: userId });
+
+    if (!post) {
+      return res.status(404).send('Post not found or unauthorized.');
+    }
+
+    // Delete image files
+    post.images.forEach(imagePath => {
+      const fullPath = path.join(process.cwd(), 'public', imagePath);
+      fs.unlink(fullPath, err => {
+        if (err) console.warn('Failed to delete image:', fullPath, err.message);
+      });
+    });
+
+    // Delete likes related to the post
+    await Like.deleteMany({ postId });
+
+    // Delete comments related to the post
+    await Comment.deleteMany({ postId });
+    
+    // Delete the post itself
+    await Post.deleteOne({ _id: postId });
+
+    return res.redirect(`/profile/user/${userId}`);
   } catch (err) {
-    console.error(err);
+    console.error('Post deletion error:', err);
     res.status(500).send('Error deleting post: ' + err.message);
   }
 };
